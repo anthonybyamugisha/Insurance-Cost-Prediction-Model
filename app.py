@@ -538,7 +538,7 @@ def main():
         
         # Average Charges by Gender
         st.markdown('<p class="section-title">Average Insurance Charges by Gender</p>', unsafe_allow_html=True)
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns(3)
         
         with col1:
             fig_avg_gender, ax_avg_gender = plt.subplots(figsize=(8, 6))
@@ -580,6 +580,27 @@ def main():
                 male_charges.median(),
                 female_charges.median()
             ), unsafe_allow_html=True)
+        
+        with col3:
+            # Average Premium Cards
+            male_avg = male_charges.mean()
+            female_avg = female_charges.mean()
+            
+            st.markdown(f"""
+                <div class="stat-card" style="margin-bottom: 1rem;">
+                    <h3 style='margin: 0; font-size: 2rem;'>♂️</h3>
+                    <p style='margin: 0.5rem 0 0 0; font-size: 1.2rem; font-weight: 600;'>Male Average Premium</p>
+                    <h2 style='margin: 0.5rem 0 0 0; font-size: 2rem;'>${male_avg:,.2f}</h2>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown(f"""
+                <div class="stat-card">
+                    <h3 style='margin: 0; font-size: 2rem;'>♀️</h3>
+                    <p style='margin: 0.5rem 0 0 0; font-size: 1.2rem; font-weight: 600;'>Female Average Premium</p>
+                    <h2 style='margin: 0.5rem 0 0 0; font-size: 2rem;'>${female_avg:,.2f}</h2>
+                </div>
+            """, unsafe_allow_html=True)
         
         st.markdown('---')
         
