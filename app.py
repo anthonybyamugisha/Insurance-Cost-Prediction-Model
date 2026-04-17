@@ -238,22 +238,15 @@ def main():
             label_visibility="collapsed"
         )
         
-        st.markdown("<hr style="border: 1px solid rgba(255,255,255,0.3); margin: 1.5rem 0;">", unsafe_allow_html=True)
+        st.markdown('<hr style="border: 1px solid rgba(255,255,255,0.3); margin: 1.5rem 0;">', unsafe_allow_html=True)
         
         st.markdown("""
             <div style="color: rgba(255,255,255,0.9); padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
                 <h4 style="color: white; margin: 0 0 0.5rem 0;">📊 Quick Stats</h4>
                 <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Model: XGBoost</p>
-                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• R² Score: 0.904</p>
+                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• R² Score: 0.901</p>
                 <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Features: 4</p>
                 <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Records: 1,339</p>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("""
-            <div style="text-align: center; margin-top: 2rem; color: rgba(255,255,255,0.7); font-size: 0.85rem;">
-                <p style="margin: 0;">Built by Anthony Byamugisha</p>
-                <p style="margin: 0.5rem 0 0 0;">🎓 WorldQuant University</p>
             </div>
         """, unsafe_allow_html=True)
     
@@ -286,7 +279,7 @@ def main():
         with col3:
             st.markdown("""
                 <div class="stat-card">
-                    <h2 style='margin: 0; font-size: 2.5rem;'>0.904</h2>
+                    <h2 style='margin: 0; font-size: 2.5rem;'>0.901</h2>
                     <p style='margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;'>R² Test Score</p>
                 </div>
             """, unsafe_allow_html=True)
@@ -298,7 +291,7 @@ def main():
                 <p style='margin: 0; line-height: 1.8; font-size: 1.1rem;'>
                 This application uses an <strong>XGBoost regression model</strong> to predict medical insurance costs 
                 based on personal health and demographic factors. The model was trained on 1,339 insurance 
-                records and achieves an <strong>R² score of 0.904 on the test set</strong>, meaning it explains 90.4% of the 
+                records and achieves an <strong>R² score of 0.901 on the test set</strong>, meaning it explains 90.1% of the 
                 variance in insurance charges.
                 </p>
             </div>
@@ -313,7 +306,7 @@ def main():
                     <p style='margin: 0; color: #718096;'>Get instant insurance cost estimates</p>
                 </div>
                 <div class="feature-card">
-                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>🎯 R² Score: 0.904</h4>
+                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>🎯 R² Score: 0.901</h4>
                     <p style='margin: 0; color: #718096;'>Strong predictive performance</p>
                 </div>
             """, unsafe_allow_html=True)
@@ -602,6 +595,26 @@ def main():
                         <strong>✅ Below Average:</strong> Your predicted cost is <strong>${(avg_charge - prediction):,.2f}</strong> below the average (${avg_charge:,.2f})
                     </div>
                 """, unsafe_allow_html=True)
+            
+            st.markdown('---')
+            
+            # Interpretation guide
+            st.markdown('<p class="section-title">📖 Understanding Your Prediction</p>', unsafe_allow_html=True)
+            st.markdown("""
+                <div class="feature-card">
+                    <p style='margin: 0.5rem 0; color: #718096;'>
+                        This prediction is based on an XGBoost regression model trained on 1,339 insurance records. 
+                        The model considers your age, BMI, number of children, and smoking status to estimate your 
+                        annual insurance cost.
+                    </p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>
+                        <strong>Key factors affecting your premium:</strong><br>
+                        • Smoking status has the largest impact<br>
+                        • Age is the second most important factor<br>
+                        • BMI and number of children have moderate effects
+                    </p>
+                </div>
+            """, unsafe_allow_html=True)
     
     # About Page
     elif page == "ℹ️ About":
@@ -662,20 +675,20 @@ def main():
                     </tr>
                     <tr style='border-bottom: 1px solid #e2e8f0;'>
                         <td style='padding: 1rem;'>Training R²</td>
-                        <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.870</td>
+                        <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.869</td>
                     </tr>
                     <tr style='border-bottom: 1px solid #e2e8f0;'>
                         <td style='padding: 1rem;'>Testing R²</td>
-                        <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.904</td>
+                        <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.901</td>
                     </tr>
                     <tr>
                         <td style='padding: 1rem;'>Cross-Validation (CV)</td>
-                        <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.860</td>
+                        <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.861</td>
                     </tr>
                 </table>
                 <p style='margin-top: 1rem; color: #718096; font-size: 0.95rem;'>
                     <strong>Note:</strong> R² (R-squared) score measures how well the model explains the variance in the data. 
-                    An R² of 0.904 means the model explains 90.4% of the variance in insurance charges.
+                    An R² of 0.901 means the model explains 90.1% of the variance in insurance charges.
                 </p>
             </div>
         """, unsafe_allow_html=True)
@@ -740,7 +753,7 @@ def main():
                 <strong>5.</strong> Features like <strong>sex</strong> and <strong>region</strong> were removed during feature selection as they had little predictive power
             </div>
             <div class="insight-box">
-                <strong>6.</strong> The model achieves an <strong>R² score of 0.904</strong> on the test set
+                <strong>6.</strong> The model achieves an <strong>R² score of 0.901</strong> on the test set
             </div>
         """, unsafe_allow_html=True)
         
