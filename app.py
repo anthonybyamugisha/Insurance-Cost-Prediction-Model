@@ -490,6 +490,205 @@ def main():
         
         st.markdown("---")
         
+        # Gender-Based Analysis Section
+        st.markdown('<p class="section-title">👥 Gender-Based Insurance Cost Analysis</p>', unsafe_allow_html=True)
+        st.markdown("""
+            <div class="info-box">
+                <h4 style='margin: 0 0 0.5rem 0;'>📊 Why Gender Analysis Matters</h4>
+                <p style='margin: 0; line-height: 1.6;'>
+                Understanding gender-based differences in insurance costs is crucial for fair pricing policies 
+                and identifying potential biases in insurance premium calculations.
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        # Gender Distribution
+        st.markdown('<p class="section-title">Gender Distribution in Dataset</p>', unsafe_allow_html=True)
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            fig_gender, ax_gender = plt.subplots(figsize=(8, 6))
+            gender_counts = df['sex'].value_counts()
+            colors = ['#3498db', '#e91e63']
+            bars = ax_gender.bar(['Male', 'Female'], gender_counts.values, 
+                                color=colors, edgecolor='white', linewidth=2)
+            ax_gender.set_ylabel('Count', fontsize=14, fontweight='bold')
+            ax_gender.set_title('Distribution of Policyholders by Gender', fontsize=16, fontweight='bold', pad=20)
+            ax_gender.spines['top'].set_visible(False)
+            ax_gender.spines['right'].set_visible(False)
+            
+            # Add value labels on bars
+            for bar, count in zip(bars, gender_counts.values):
+                height = bar.get_height()
+                ax_gender.text(bar.get_x() + bar.get_width()/2., height,
+                             f'{count}\n({count/len(df)*100:.1f}%)',
+                             ha='center', va='bottom', fontsize=12, fontweight='bold')
+            
+            st.pyplot(fig_gender)
+        
+        with col2:
+            fig_gender_pie, ax_gender_pie = plt.subplots(figsize=(8, 6))
+            ax_gender_pie.pie(gender_counts.values, labels=['Male', 'Female'],
+                            autopct='%1.1f%%', colors=colors, startangle=90,
+                            textprops={'fontsize': 14, 'fontweight': 'bold'})
+            ax_gender_pie.set_title('Gender Proportion', fontsize=16, fontweight='bold', pad=20)
+            st.pyplot(fig_gender_pie)
+        
+        st.markdown('---')
+        
+        # Average Charges by Gender
+        st.markdown('<p class="section-title">Average Insurance Charges by Gender</p>', unsafe_allow_html=True)
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            fig_avg_gender, ax_avg_gender = plt.subplots(figsize=(8, 6))
+            avg_charges_gender = df.groupby('sex')['charges'].mean()
+            bars = ax_avg_gender.bar(['Male', 'Female'], avg_charges_gender.values,
+                                    color=['#3498db', '#e91e63'], edgecolor='white', linewidth=2)
+            ax_avg_gender.set_ylabel('Average Charges ($)', fontsize=14, fontweight='bold')
+            ax_avg_gender.set_title('Mean Insurance Cost by Gender', fontsize=16, fontweight='bold', pad=20)
+            ax_avg_gender.spines['top'].set_visible(False)
+            ax_avg_gender.spines['right'].set_visible(False)
+            
+            # Add value labels
+            for bar, charge in zip(bars, avg_charges_gender.values):
+                height = bar.get_height()
+                ax_avg_gender.text(bar.get_x() + bar.get_width()/2., height,
+                                 f'${charge:,.2f}',
+                                 ha='center', va='bottom', fontsize=12, fontweight='bold')
+            
+            st.pyplot(fig_avg_gender)
+        
+        with col2:
+            # Statistical comparison
+            male_charges = df[df['sex'] == 'male']['charges']
+            female_charges = df[df['sex'] == 'female']['charges']
+            
+            st.markdown("""
+                <div class="feature-card">
+                    <h4 style='color: #667eea; margin: 0 0 1rem 0;'>📈 Gender Cost Statistics</h4>
+                    <p style='margin: 0.5rem 0; color: #718096;'><strong>Male Average:</strong> ${:,.2f}</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'><strong>Female Average:</strong> ${:,.2f}</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'><strong>Difference:</strong> ${:,.2f}</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'><strong>Male Median:</strong> ${:,.2f}</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'><strong>Female Median:</strong> ${:,.2f}</p>
+                </div>
+            """.format(
+                male_charges.mean(),
+                female_charges.mean(),
+                abs(male_charges.mean() - female_charges.mean()),
+                male_charges.median(),
+                female_charges.median()
+            ), unsafe_allow_html=True)
+        
+        st.markdown('---')
+        
+        # Gender vs Smoker Status
+        st.markdown('<p class="section-title">Gender × Smoking Status Impact on Costs</p>', unsafe_allow_html=True)
+        
+        fig_gender_smoker, ax_gender_smoker = plt.subplots(figsize=(10, 6))
+        gender_smoker = df.groupby(['sex', 'smoker'])['charges'].mean().unstack()
+        gender_smoker.plot(kind='bar', ax=ax_gender_smoker, 
+                          color=['#3498db', '#e91e63'], edgecolor='white', linewidth=1.5,
+                          width=0.7)
+        ax_gender_smoker.set_xlabel('Gender', fontsize=14, fontweight='bold')
+        ax_gender_smoker.set_ylabel('Average Charges ($)', fontsize=14, fontweight='bold')
+        ax_gender_smoker.set_title('Average Insurance Cost by Gender and Smoking Status', 
+                                  fontsize=16, fontweight='bold', pad=20)
+        ax_gender_smoker.set_xticklabels(['Male', 'Female'], rotation=0)
+        ax_gender_smoker.legend(['Non-Smoker', 'Smoker'], fontsize=12)
+        ax_gender_smoker.spines['top'].set_visible(False)
+        ax_gender_smoker.spines['right'].set_visible(False)
+        
+        st.pyplot(fig_gender_smoker)
+        
+        st.markdown("""
+            <div class="insight-box">
+                <strong>Key Insight:</strong> Smoking status has a much larger impact on insurance costs than gender. 
+                Both male and female smokers pay significantly higher premiums compared to non-smokers of the same gender.
+            </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown('---')
+        
+        # Gender and Age Relationship
+        st.markdown('<p class="section-title">Age vs Insurance Costs by Gender</p>', unsafe_allow_html=True)
+        
+        fig_age_gender, ax_age_gender = plt.subplots(figsize=(10, 6))
+        for gender in ['male', 'female']:
+            gender_data = df[df['sex'] == gender]
+            ax_age_gender.scatter(gender_data['age'], gender_data['charges'],
+                                alpha=0.6, label=gender.capitalize(),
+                                color='#3498db' if gender == 'male' else '#e91e63',
+                                edgecolors='white', linewidth=0.5)
+        
+        ax_age_gender.set_xlabel('Age', fontsize=14, fontweight='bold')
+        ax_age_gender.set_ylabel('Insurance Charges ($)', fontsize=14, fontweight='bold')
+        ax_age_gender.set_title('Insurance Costs vs Age by Gender', fontsize=16, fontweight='bold', pad=20)
+        ax_age_gender.legend(fontsize=12)
+        ax_age_gender.spines['top'].set_visible(False)
+        ax_age_gender.spines['right'].set_visible(False)
+        
+        st.pyplot(fig_age_gender)
+        
+        st.markdown('---')
+        
+        # Gender and BMI Relationship
+        st.markdown('<p class="section-title">BMI vs Insurance Costs by Gender</p>', unsafe_allow_html=True)
+        
+        fig_bmi_gender, ax_bmi_gender = plt.subplots(figsize=(10, 6))
+        for gender in ['male', 'female']:
+            gender_data = df[df['sex'] == gender]
+            ax_bmi_gender.scatter(gender_data['bmi'], gender_data['charges'],
+                                alpha=0.6, label=gender.capitalize(),
+                                color='#3498db' if gender == 'male' else '#e91e63',
+                                edgecolors='white', linewidth=0.5)
+        
+        ax_bmi_gender.set_xlabel('BMI', fontsize=14, fontweight='bold')
+        ax_bmi_gender.set_ylabel('Insurance Charges ($)', fontsize=14, fontweight='bold')
+        ax_bmi_gender.set_title('Insurance Costs vs BMI by Gender', fontsize=16, fontweight='bold', pad=20)
+        ax_bmi_gender.legend(fontsize=12)
+        ax_bmi_gender.spines['top'].set_visible(False)
+        ax_bmi_gender.spines['right'].set_visible(False)
+        
+        st.pyplot(fig_bmi_gender)
+        
+        st.markdown('---')
+        
+        # Gender Analysis Summary
+        st.markdown('<p class="section-title">🔍 Gender Analysis Summary</p>', unsafe_allow_html=True)
+        
+        gender_diff = abs(male_charges.mean() - female_charges.mean())
+        gender_diff_percent = (gender_diff / min(male_charges.mean(), female_charges.mean())) * 100
+        
+        if male_charges.mean() > female_charges.mean():
+            higher_gender = "Males"
+        else:
+            higher_gender = "Females"
+        
+        st.markdown(f"""
+            <div class="feature-card">
+                <h4 style='color: #667eea; margin: 0 0 1rem 0;'>📋 Key Gender-Based Findings</h4>
+                <p style='margin: 0.75rem 0; color: #718096;'>✓ <strong>{higher_gender}</strong> pay an average of <strong>${gender_diff:,.2f} more</strong> than {'females' if higher_gender == 'Males' else 'males'} ({gender_diff_percent:.1f}% difference)</p>
+                <p style='margin: 0.75rem 0; color: #718096;'>✓ The cost difference between genders is <strong>relatively small</strong> compared to the impact of smoking status</p>
+                <p style='margin: 0.75rem 0; color: #718096;'>✓ Both genders show similar patterns: costs increase with age and are heavily influenced by smoking</p>
+                <p style='margin: 0.75rem 0; color: #718096;'>✓ Gender was removed from the final model during feature selection, indicating it has <strong>minimal predictive power</strong></p>
+                <p style='margin: 0.75rem 0; color: #718096;'>✓ The dataset has a fairly balanced gender distribution, ensuring unbiased model training</p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+            <div class="insight-box">
+                <strong>Conclusion for Lecturer:</strong> While there are observable differences in insurance costs between genders, 
+                these differences are relatively minor compared to other factors like smoking status and age. 
+                The machine learning model confirmed this by excluding gender during feature selection, 
+                demonstrating that gender is not a significant predictor of insurance costs when controlling for other variables. 
+                This suggests a fair pricing model that doesn't heavily discriminate based on gender.
+            </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown('---')
+        
         # Key insights in styled boxes
         st.markdown('<p class="section-title">💡 Key Insights</p>', unsafe_allow_html=True)
         st.markdown("""
