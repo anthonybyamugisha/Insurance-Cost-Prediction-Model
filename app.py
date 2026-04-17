@@ -246,7 +246,7 @@ def main():
                 <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Model: XGBoost</p>
                 <p style="margin: 0.5rem 0; font-size: 0.9rem;">• R² Score: 0.901</p>
                 <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Features: 4</p>
-                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Records: 1,339</p>
+                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Records: 1,338</p>
             </div>
         """, unsafe_allow_html=True)
     
@@ -263,7 +263,7 @@ def main():
         with col1:
             st.markdown("""
                 <div class="stat-card">
-                    <h2 style='margin: 0; font-size: 2.5rem;'>1,339</h2>
+                    <h2 style='margin: 0; font-size: 2.5rem;'>1,338</h2>
                     <p style='margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;'>Dataset Records</p>
                 </div>
             """, unsafe_allow_html=True)
@@ -290,7 +290,7 @@ def main():
                 <h3 style='margin: 0 0 1rem 0;'>🎯 Project Overview</h3>
                 <p style='margin: 0; line-height: 1.8; font-size: 1.1rem;'>
                 This application uses an <strong>XGBoost regression model</strong> to predict medical insurance costs 
-                based on personal health and demographic factors. The model was trained on 1,339 insurance 
+                based on personal health and demographic factors. The model was trained on 1,338 insurance 
                 records and achieves an <strong>R² score of 0.901 on the test set</strong>, meaning it explains 90.1% of the 
                 variance in insurance charges.
                 </p>
@@ -354,7 +354,7 @@ def main():
             st.markdown("""
                 <div class="feature-card">
                     <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>📦 Dataset Size</h4>
-                    <p style='margin: 0; color: #718096;'><strong>1,339</strong> records</p>
+                    <p style='margin: 0; color: #718096;'><strong>1,338</strong> records</p>
                     <p style='margin: 0.5rem 0 0 0; color: #718096;'><strong>7</strong> columns (6 features + 1 target)</p>
                 </div>
             """, unsafe_allow_html=True)
@@ -603,7 +603,7 @@ def main():
             st.markdown("""
                 <div class="feature-card">
                     <p style='margin: 0.5rem 0; color: #718096;'>
-                        This prediction is based on an XGBoost regression model trained on 1,339 insurance records. 
+                        This prediction is based on an XGBoost regression model trained on 1,338 insurance records. 
                         The model considers your age, BMI, number of children, and smoking status to estimate your 
                         annual insurance cost.
                     </p>
@@ -714,7 +714,7 @@ def main():
         st.markdown("""
             <div class="feature-card">
                 <p style='margin: 0.5rem 0; color: #718096;'><strong>📓 insurance_cost.ipynb</strong> - Jupyter notebook with complete ML pipeline</p>
-                <p style='margin: 0.5rem 0; color: #718096;'><strong>📊 insurance_data.csv</strong> - Dataset with 1,339 records</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>📊 insurance_data.csv</strong> - Dataset with 1,338 records</p>
                 <p style='margin: 0.5rem 0; color: #718096;'><strong>🤖 insurancemodelf.pkl</strong> - Trained XGBoost model</p>
                 <p style='margin: 0.5rem 0; color: #718096;'><strong>🌐 app.py</strong> - Streamlit web application</p>
                 <p style='margin: 0.5rem 0; color: #718096;'><strong>📋 requirements.txt</strong> - Python dependencies</p>
@@ -727,7 +727,7 @@ def main():
         st.markdown("""
             <div class="feature-card">
                 <p style='margin: 0.5rem 0; color: #718096;'><strong>📓 insurance_cost.ipynb</strong> - Jupyter notebook with complete ML pipeline</p>
-                <p style='margin: 0.5rem 0; color: #718096;'><strong>📊 insurance_data.csv</strong> - Dataset with 1,339 records</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>📊 insurance_data.csv</strong> - Dataset with 1,338 records</p>
                 <p style='margin: 0.5rem 0; color: #718096;'><strong>🤖 insurancemodelf.pkl</strong> - Trained XGBoost model</p>
                 <p style='margin: 0.5rem 0; color: #718096;'><strong>🌐 app.py</strong> - Streamlit web application</p>
                 <p style='margin: 0.5rem 0; color: #718096;'><strong>📋 requirements.txt</strong> - Python dependencies</p>
