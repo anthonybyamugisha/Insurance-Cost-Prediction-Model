@@ -134,8 +134,67 @@ st.markdown("""
     }
     
     /* Sidebar styling */
-    .css-1d391kg {
+    [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    [data-testid="stSidebar"] .css-1r5gz7h {
+        background: transparent;
+    }
+    
+    .sidebar-content {
+        color: white;
+    }
+    
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] label {
+        color: white !important;
+    }
+    
+    [data-testid="stSidebar"] .stRadio > label {
+        color: white !important;
+        font-weight: 600;
+    }
+    
+    [data-testid="stSidebar"] .stRadio > div {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 0.5rem;
+    }
+    
+    /* Page transition effects */
+    .main .block-container {
+        animation: fadeInPage 0.5s ease-in;
+    }
+    
+    @keyframes fadeInPage {
+        from { opacity: 0; transform: translateX(20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    
+    /* Input styling */
+    .stSlider > div > div > div > div {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .stSelectbox > div > div {
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+    }
+    
+    .stSelectbox > div > div:focus {
+        border-color: #667eea;
+    }
+    
+    /* Metric styling */
+    .stMetric {
+        background: white;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     </style>
 """, unsafe_allow_html=True)
@@ -157,14 +216,46 @@ def load_data():
 def main():
     # Header with icon
     st.markdown('<p class="main-header">🏥 Insurance Cost Predictor</p>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align: center; color: #718096; font-size: 1.3rem; margin-bottom: 2rem;">AI-Powered Insurance Premium Estimation with 90.4% Accuracy</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center; color: #718096; font-size: 1.3rem; margin-bottom: 2rem;">Machine Learning-Powered Insurance Premium Estimation</p>', unsafe_allow_html=True)
     
     # Add a separator line
     st.markdown('---')
     
-    # Sidebar navigation
-    st.sidebar.title("Navigation")
-    page = st.sidebar.radio("Go to:", ["🏠 Home", "📊 Data Analysis", "🔮 Predict Costs", "ℹ️ About"])
+    # Sidebar navigation with enhanced styling
+    with st.sidebar:
+        st.markdown("""
+            <div style="text-align: center; padding: 1rem 0;">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🏥</div>
+                <h2 style="color: white; margin: 0; font-weight: 700;">Insurance Predictor</h2>
+                <p style="color: rgba(255,255,255,0.8); margin: 0.5rem 0 0 0; font-size: 0.9rem;">ML-Powered Predictions</p>
+                <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 1.5rem 0;">
+            </div>
+        """, unsafe_allow_html=True)
+        
+        page = st.radio(
+            "Navigate to:",
+            ["🏠 Home", "📊 Data Analysis", "🔮 Predict Costs", "ℹ️ About"],
+            label_visibility="collapsed"
+        )
+        
+        st.markdown("<hr style="border: 1px solid rgba(255,255,255,0.3); margin: 1.5rem 0;">", unsafe_allow_html=True)
+        
+        st.markdown("""
+            <div style="color: rgba(255,255,255,0.9); padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                <h4 style="color: white; margin: 0 0 0.5rem 0;">📊 Quick Stats</h4>
+                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Model: XGBoost</p>
+                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• R² Score: 0.904</p>
+                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Features: 4</p>
+                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Records: 1,339</p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+            <div style="text-align: center; margin-top: 2rem; color: rgba(255,255,255,0.7); font-size: 0.85rem;">
+                <p style="margin: 0;">Built by Anthony Byamugisha</p>
+                <p style="margin: 0.5rem 0 0 0;">🎓 WorldQuant University</p>
+            </div>
+        """, unsafe_allow_html=True)
     
     # Load model and data
     model = load_model()
@@ -187,7 +278,7 @@ def main():
         with col2:
             st.markdown("""
                 <div class="stat-card">
-                    <h2 style='margin: 0; font-size: 2.5rem;'>6</h2>
+                    <h2 style='margin: 0; font-size: 2.5rem;'>4</h2>
                     <p style='margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;'>Input Features</p>
                 </div>
             """, unsafe_allow_html=True)
@@ -195,8 +286,8 @@ def main():
         with col3:
             st.markdown("""
                 <div class="stat-card">
-                    <h2 style='margin: 0; font-size: 2.5rem;'>90.4%</h2>
-                    <p style='margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;'>Model Accuracy</p>
+                    <h2 style='margin: 0; font-size: 2.5rem;'>0.904</h2>
+                    <p style='margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;'>R² Test Score</p>
                 </div>
             """, unsafe_allow_html=True)
         
@@ -205,9 +296,10 @@ def main():
             <div class="info-box">
                 <h3 style='margin: 0 0 1rem 0;'>🎯 Project Overview</h3>
                 <p style='margin: 0; line-height: 1.8; font-size: 1.1rem;'>
-                This application uses an advanced <strong>XGBoost machine learning model</strong> to predict insurance costs 
-                based on personal health and demographic factors. The model has been trained on 1,339 insurance 
-                records and achieves a <strong>test accuracy of 90.4%</strong>.
+                This application uses an <strong>XGBoost regression model</strong> to predict medical insurance costs 
+                based on personal health and demographic factors. The model was trained on 1,339 insurance 
+                records and achieves an <strong>R² score of 0.904 on the test set</strong>, meaning it explains 90.4% of the 
+                variance in insurance charges.
                 </p>
             </div>
         """, unsafe_allow_html=True)
@@ -221,8 +313,8 @@ def main():
                     <p style='margin: 0; color: #718096;'>Get instant insurance cost estimates</p>
                 </div>
                 <div class="feature-card">
-                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>🎯 90.4% Accuracy</h4>
-                    <p style='margin: 0; color: #718096;'>High-precision ML model</p>
+                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>🎯 R² Score: 0.904</h4>
+                    <p style='margin: 0; color: #718096;'>Strong predictive performance</p>
                 </div>
             """, unsafe_allow_html=True)
         with features_col2:
@@ -242,11 +334,12 @@ def main():
         st.markdown("""
             <div class="feature-card">
                 <p style='margin: 0.5rem 0;'><strong>🎂 Age:</strong> Policyholder's age in years</p>
-                <p style='margin: 0.5rem 0;'><strong>👤 Sex:</strong> Gender (male/female)</p>
                 <p style='margin: 0.5rem 0;'><strong>📊 BMI:</strong> Body Mass Index (weight/height ratio)</p>
                 <p style='margin: 0.5rem 0;'><strong>👶 Children:</strong> Number of dependents covered</p>
                 <p style='margin: 0.5rem 0;'><strong>🚬 Smoker:</strong> Smoking status (yes/no)</p>
-                <p style='margin: 0.5rem 0;'><strong>📍 Region:</strong> Geographic location in the US</p>
+            </div>
+            <div class="insight-box" style="margin-top: 1rem;">
+                <strong>Note:</strong> The final model uses only 4 features (age, bmi, children, smoker). Features like sex and region were removed during feature selection as they had minimal impact on predictions.
             </div>
         """, unsafe_allow_html=True)
     
@@ -258,6 +351,28 @@ def main():
         # Dataset overview in a styled container
         st.markdown('<p class="section-title">📄 Dataset Statistics</p>', unsafe_allow_html=True)
         st.dataframe(df.describe(), use_container_width=True)
+        
+        st.markdown('---')
+        
+        # Dataset info
+        st.markdown('<p class="section-title">ℹ️ Dataset Information</p>', unsafe_allow_html=True)
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("""
+                <div class="feature-card">
+                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>📦 Dataset Size</h4>
+                    <p style='margin: 0; color: #718096;'><strong>1,339</strong> records</p>
+                    <p style='margin: 0.5rem 0 0 0; color: #718096;'><strong>7</strong> columns (6 features + 1 target)</p>
+                </div>
+            """, unsafe_allow_html=True)
+        with col2:
+            st.markdown("""
+                <div class="feature-card">
+                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>🎯 Target Variable</h4>
+                    <p style='margin: 0; color: #718096;'><strong>charges</strong> (insurance cost)</p>
+                    <p style='margin: 0.5rem 0 0 0; color: #718096;'>Range: $1,121 - $63,770</p>
+                </div>
+            """, unsafe_allow_html=True)
         
         st.markdown("---")
         
@@ -380,22 +495,31 @@ def main():
         # Input form with better organization
         st.markdown('<p class="section-title">📝 Enter Your Information</p>', unsafe_allow_html=True)
         
-        # Input form
+        # Organize inputs into logical sections
+        st.markdown("""<p style="color: #718096; font-size: 0.95rem; margin-bottom: 1rem;">👤 <strong>Personal Information</strong></p>""", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         
         with col1:
-            age = st.slider("Age", min_value=18, max_value=64, value=30, step=1)
+            age = st.slider("Age (years)", min_value=18, max_value=64, value=30, step=1)
             sex = st.selectbox("Sex", ["male", "female"])
+        
+        with col2:
             bmi = st.number_input("BMI (Body Mass Index)", 
                                  min_value=15.0, 
                                  max_value=55.0, 
                                  value=25.0, 
-                                 step=0.1)
+                                 step=0.1,
+                                 help="BMI = weight(kg) / height(m)²")
+            children = st.slider("Number of Children", min_value=0, max_value=5, value=0, step=1)
+        
+        st.markdown("""<p style="color: #718096; font-size: 0.95rem; margin: 1.5rem 0 1rem 0;">🏥 <strong>Health Information</strong></p>""", unsafe_allow_html=True)
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            smoker = st.selectbox("Smoking Status", ["no", "yes"])
         
         with col2:
-            children = st.slider("Number of Children", min_value=0, max_value=5, value=0, step=1)
-            smoker = st.selectbox("Smoker", ["no", "yes"])
-            region = st.selectbox("Region", ["northwest", "northeast", "southeast", "southwest"])
+            region = st.selectbox("Geographic Region", ["northwest", "northeast", "southeast", "southwest"])
         
         st.markdown("---")
         
@@ -501,18 +625,30 @@ def main():
             st.markdown("""
                 <div class="feature-card">
                     <h4 style='color: #667eea; margin: 0 0 1rem 0;'>📦 Data Processing</h4>
-                    <p style='margin: 0.5rem 0; color: #718096;'>• Pandas</p>
-                    <p style='margin: 0.5rem 0; color: #718096;'>• NumPy</p>
-                    <p style='margin: 0.5rem 0; color: #718096;'>• Feature-engine</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Pandas</strong> - Data manipulation</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>NumPy</strong> - Numerical computing</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Feature-engine</strong> - Outlier treatment</p>
+                </div>
+                <div class="feature-card" style="margin-top: 1rem;">
+                    <h4 style='color: #667eea; margin: 0 0 1rem 0;'>📊 Visualization</h4>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Matplotlib</strong> - Plotting library</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Seaborn</strong> - Statistical graphics</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Streamlit</strong> - Web framework</p>
                 </div>
             """, unsafe_allow_html=True)
         with tech_col2:
             st.markdown("""
                 <div class="feature-card">
                     <h4 style='color: #667eea; margin: 0 0 1rem 0;'>🤖 Machine Learning</h4>
-                    <p style='margin: 0.5rem 0; color: #718096;'>• XGBoost</p>
-                    <p style='margin: 0.5rem 0; color: #718096;'>• Scikit-learn</p>
-                    <p style='margin: 0.5rem 0; color: #718096;'>• Streamlit</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>XGBoost</strong> - Gradient boosting</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Scikit-learn</strong> - ML toolkit</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>GridSearchCV</strong> - Hyperparameter tuning</p>
+                </div>
+                <div class="feature-card" style="margin-top: 1rem;">
+                    <h4 style='color: #667eea; margin: 0 0 1rem 0;'>🔧 Development</h4>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Jupyter Notebook</strong> - Exploration</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Python 3.8+</strong> - Programming language</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Git</strong> - Version control</p>
                 </div>
             """, unsafe_allow_html=True)
         
@@ -533,10 +669,14 @@ def main():
                         <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.904</td>
                     </tr>
                     <tr>
-                        <td style='padding: 1rem;'>Cross-Validation</td>
+                        <td style='padding: 1rem;'>Cross-Validation (CV)</td>
                         <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.860</td>
                     </tr>
                 </table>
+                <p style='margin-top: 1rem; color: #718096; font-size: 0.95rem;'>
+                    <strong>Note:</strong> R² (R-squared) score measures how well the model explains the variance in the data. 
+                    An R² of 0.904 means the model explains 90.4% of the variance in insurance charges.
+                </p>
             </div>
         """, unsafe_allow_html=True)
         
@@ -555,11 +695,37 @@ def main():
             </div>
         """, unsafe_allow_html=True)
         
-        st.markdown("---")
+        st.markdown('---')
+                
+        st.markdown('<p class="section-title">📂 Project Files</p>', unsafe_allow_html=True)
+        st.markdown("""
+            <div class="feature-card">
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>📓 insurance_cost.ipynb</strong> - Jupyter notebook with complete ML pipeline</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>📊 insurance_data.csv</strong> - Dataset with 1,339 records</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>🤖 insurancemodelf.pkl</strong> - Trained XGBoost model</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>🌐 app.py</strong> - Streamlit web application</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>📋 requirements.txt</strong> - Python dependencies</p>
+            </div>
+        """, unsafe_allow_html=True)
+                
+        st.markdown('---')
+        
+        st.markdown('<p class="section-title">📂 Project Files</p>', unsafe_allow_html=True)
+        st.markdown("""
+            <div class="feature-card">
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>📓 insurance_cost.ipynb</strong> - Jupyter notebook with complete ML pipeline</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>📊 insurance_data.csv</strong> - Dataset with 1,339 records</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>🤖 insurancemodelf.pkl</strong> - Trained XGBoost model</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>🌐 app.py</strong> - Streamlit web application</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>📋 requirements.txt</strong> - Python dependencies</p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown('---')
         st.markdown('<p class="section-title">📈 Key Findings</p>', unsafe_allow_html=True)
         st.markdown("""
             <div class="insight-box">
-                <strong>1.</strong> <strong>Smoking status</strong> is the most significant predictor of insurance costs
+                <strong>1.</strong> <strong>Smoking status</strong> is the most significant predictor of insurance costs (smokers pay approximately 3x more)
             </div>
             <div class="insight-box">
                 <strong>2.</strong> <strong>Age</strong> shows a strong positive correlation with premiums
@@ -568,15 +734,24 @@ def main():
                 <strong>3.</strong> <strong>BMI</strong> has a moderate impact on cost predictions
             </div>
             <div class="insight-box">
-                <strong>4.</strong> <strong>Geographic region</strong> and <strong>gender</strong> have minimal predictive power
+                <strong>4.</strong> <strong>Number of children</strong> has minimal influence on premiums
             </div>
             <div class="insight-box">
-                <strong>5.</strong> The model achieves <strong>90.4% accuracy</strong> on unseen test data
+                <strong>5.</strong> Features like <strong>sex</strong> and <strong>region</strong> were removed during feature selection as they had little predictive power
+            </div>
+            <div class="insight-box">
+                <strong>6.</strong> The model achieves an <strong>R² score of 0.904</strong> on the test set
             </div>
         """, unsafe_allow_html=True)
         
-        st.markdown("---")
-        st.markdown("**Dataset Source:** [Hugging Face - Insurance Dataset](https://huggingface.co/datasets/adegoke655/Insurance)")
+        st.markdown('---')
+        st.markdown("""
+            <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white;">
+                <h3 style="margin: 0 0 1rem 0;">📊 Dataset Source</h3>
+                <p style="margin: 0; font-size: 1.1rem;">Hugging Face - Insurance Dataset</p>
+                <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">adegoke655/Insurance</p>
+            </div>
+        """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
