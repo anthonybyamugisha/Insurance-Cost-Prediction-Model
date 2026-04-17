@@ -679,7 +679,7 @@ def main():
         
         st.markdown("""
             <div class="insight-box">
-                <strong>Conclusion for Lecturer:</strong> While there are observable differences in insurance costs between genders, 
+                <strong>Conclusion:</strong> While there are observable differences in insurance costs between genders, 
                 these differences are relatively minor compared to other factors like smoking status and age. 
                 The machine learning model confirmed this by excluding gender during feature selection, 
                 demonstrating that gender is not a significant predictor of insurance costs when controlling for other variables. 
