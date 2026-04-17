@@ -25,15 +25,27 @@ st.markdown("""
     }
     
     .main-header {
-        font-size: 3.5rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-size: 5rem !important;
+        font-weight: 800;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         text-align: center;
         margin-bottom: 0.5rem;
         animation: fadeIn 1s ease-in;
+        letter-spacing: -1px;
+        line-height: 1.2;
+    }
+    
+    .sub-title {
+        font-size: 2rem !important;
+        color: #718096;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        animation: fadeIn 1.2s ease-in;
     }
     
     @keyframes fadeIn {
@@ -42,7 +54,7 @@ st.markdown("""
     }
     
     .sub-header {
-        font-size: 1.8rem;
+        font-size: 3rem !important;
         font-weight: 600;
         color: #2d3748;
         margin-bottom: 1.5rem;
@@ -51,7 +63,7 @@ st.markdown("""
     }
     
     .section-title {
-        font-size: 1.4rem;
+        font-size: 2rem !important;
         font-weight: 600;
         color: #4a5568;
         margin: 1.5rem 0 1rem 0;
@@ -157,12 +169,31 @@ st.markdown("""
     [data-testid="stSidebar"] .stRadio > label {
         color: white !important;
         font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
     }
     
     [data-testid="stSidebar"] .stRadio > div {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 0.75rem;
+        gap: 0.25rem;
+    }
+    
+    [data-testid="stSidebar"] .stRadio > div > label {
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        margin: 0.25rem 0;
+        transition: all 0.2s ease;
+    }
+    
+    [data-testid="stSidebar"] .stRadio > div > label:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+    
+    [data-testid="stSidebar"] .stRadio input[type="radio"]:checked + label {
+        background: rgba(255, 255, 255, 0.25) !important;
+        font-weight: 700;
     }
     
     /* Page transition effects */
@@ -216,7 +247,7 @@ def load_data():
 def main():
     # Header with icon
     st.markdown('<p class="main-header">🏥 Insurance Cost Predictor</p>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align: center; color: #718096; font-size: 1.3rem; margin-bottom: 2rem;">Machine Learning-Powered Insurance Premium Estimation</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-title">Machine Learning-Powered Insurance Premium Estimation</p>', unsafe_allow_html=True)
     
     # Add a separator line
     st.markdown('---')
@@ -224,21 +255,23 @@ def main():
     # Sidebar navigation with enhanced styling
     with st.sidebar:
         st.markdown("""
-            <div style="text-align: center; padding: 1rem 0;">
-                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🏥</div>
-                <h2 style="color: white; margin: 0; font-weight: 700;">Insurance Predictor</h2>
-                <p style="color: rgba(255,255,255,0.8); margin: 0.5rem 0 0 0; font-size: 0.9rem;">ML-Powered Predictions</p>
-                <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 1.5rem 0;">
+            <div style="text-align: center; padding: 1.5rem 0;">
+                <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🏥</div>
+                <h2 style="color: white; margin: 0; font-weight: 700; font-size: 1.5rem;">Insurance Cost Predictor</h2>
+                <p style="color: rgba(255,255,255,0.8); margin: 0.5rem 0 0 0; font-size: 0.85rem;">ML-Powered Predictions</p>
             </div>
         """, unsafe_allow_html=True)
         
+        st.markdown('<hr style="border: 1px solid rgba(255,255,255,0.2); margin: 1rem 0;">', unsafe_allow_html=True)
+        
         page = st.radio(
-            "Navigate to:",
+            "Navigation",
             ["🏠 Home", "📊 Data Analysis", "🔮 Predict Costs", "ℹ️ About"],
-            label_visibility="collapsed"
+            label_visibility="visible",
+            index=0
         )
         
-        st.markdown('<hr style="border: 1px solid rgba(255,255,255,0.3); margin: 1.5rem 0;">', unsafe_allow_html=True)
+        st.markdown('<hr style="border: 1px solid rgba(255,255,255,0.2); margin: 1.5rem 0;">', unsafe_allow_html=True)
         
         st.markdown("""
             <div style="color: rgba(255,255,255,0.9); padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
