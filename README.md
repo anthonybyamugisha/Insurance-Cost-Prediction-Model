@@ -148,4 +148,4 @@ This project is created for portfolio demonstration and educational purposes.
 
 ---
 
-**Live Demo**: [Your Streamlit App URL]
+**Live Demo**: https://insurance-cost-prediction-model.streamlit.app/
