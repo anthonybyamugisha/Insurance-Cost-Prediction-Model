@@ -1615,7 +1615,7 @@ caching (Streamlit) | Storing function output to avoid recomputation
 **Location**: Uganda  
  **License**: Educational/Portfolio Use (not open-source licensed)  
 **Live App**: https://insurance-cost-prediction-model.streamlit.app/  
-**GitHub**: 
+**GitHub**: https://github.com/anthonybyamugisha/Insurance-Cost-Prediction-Model
 
 ---
 
