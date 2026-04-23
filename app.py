@@ -732,7 +732,7 @@ def main():
                 <strong>6. 🤖 ML/DL Comparison:</strong> XGBoost (0.902 R²) outperformed Deep Neural Network (~0.816 R²)
             </div>
             <div class="insight-box" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);">
-                <strong>7. 🧠 SHAP Analysis:</strong> Validates model decisions - smoker status is the dominant predictor (81% importance)
+                <strong>7. 🧠 SHAP Analysis:</strong> Validates model decisions - smoker status is the dominant predictor (57.7% importance)
             </div>
         """, unsafe_allow_html=True)
     
@@ -868,10 +868,10 @@ def main():
                     </p>
                     <p style='margin: 1rem 0 0.5rem 0; color: #718096;'>
                         <strong>🧠 SHAP-Validated Feature Importance:</strong><br>
-                        • <strong>Smoker status:</strong> ~81% importance (dominant predictor)<br>
-                        • <strong>Age:</strong> ~10% importance (second most important)<br>
-                        • <strong>BMI:</strong> ~6% importance (moderate effect)<br>
-                        • <strong>Children:</strong> ~3% importance (minimal impact)
+                        • <strong>Smoker status:</strong> 57.7% importance (dominant predictor)<br>
+                        • <strong>Age:</strong> 22.5% importance (second most important)<br>
+                        • <strong>BMI:</strong> 14.5% importance (moderate effect)<br>
+                        • <strong>Children:</strong> 5.3% importance (minimal impact)
                     </p>
                     <p style='margin: 1rem 0 0.5rem 0; color: #718096;'>
                         <strong>Model Interpretability:</strong> SHAP analysis confirms the model makes fair, 
@@ -1008,7 +1008,7 @@ def main():
                 <p style='margin: 0.5rem 0; color: #718096;'>• Feature selection (sex and region removed for optimal performance)</p>
                 <p style='margin: 1rem 0 0.5rem 0;'><strong>Model Interpretability:</strong></p>
                 <p style='margin: 0.5rem 0; color: #718096;'>• SHAP analysis validates feature importance</p>
-                <p style='margin: 0.5rem 0; color: #718096;'>• Smoker: ~81% importance (dominant predictor)</p>
+                <p style='margin: 0.5rem 0; color: #718096;'>• Smoker: 57.7% importance (dominant predictor)</p>
                 <p style='margin: 0.5rem 0; color: #718096;'>• Fair model: no gender or region bias</p>
             </div>
         """, unsafe_allow_html=True)
@@ -1030,16 +1030,16 @@ def main():
         st.markdown('<p class="section-title">📈 Key Findings</p>', unsafe_allow_html=True)
         st.markdown("""
             <div class="insight-box">
-                <strong>1.</strong> <strong>Smoking status</strong> is the most significant predictor (~81% SHAP importance) - smokers pay approximately 3× more
+                <strong>1.</strong> <strong>Smoking status</strong> is the most significant predictor (57.7% SHAP importance) - smokers pay approximately 3× more
             </div>
             <div class="insight-box">
-                <strong>2.</strong> <strong>Age</strong> shows strong positive correlation (~10% importance) - older individuals pay more
+                <strong>2.</strong> <strong>Age</strong> shows strong positive correlation (22.5% importance) - older individuals pay more
             </div>
             <div class="insight-box">
-                <strong>3.</strong> <strong>BMI</strong> has moderate impact (~6% importance) - positive correlation with costs
+                <strong>3.</strong> <strong>BMI</strong> has moderate impact (14.5% importance) - positive correlation with costs
             </div>
             <div class="insight-box">
-                <strong>4.</strong> <strong>Number of children</strong> has minimal influence (~3% importance)
+                <strong>4.</strong> <strong>Number of children</strong> has minimal influence (5.3% importance)
             </div>
             <div class="insight-box">
                 <strong>5.</strong> <strong>Sex and region</strong> were removed during feature selection - minimal predictive power
