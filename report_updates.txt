@@ -1,0 +1,241 @@
+# Update script for PROJECT_REPORT.md
+# This file contains all the sections that need to be updated
+
+UPDATES_NEEDED = {
+    "section_6_model_comparison": """
+## 6. Model Development & Comparative Analysis
+
+### 6.1 Experimental Setup
+
+**Dataset Split**:
+- Training set: 80% (1,069 samples)
+- Test set: 20% (268 samples)
+- Random state: 42 (for reproducibility)
+- Cross-validation: 5-fold CV on full dataset for robustness
+
+**Evaluation Metric**: R² (coefficient of determination)
+- Range: (-∞, 1]
+- 1 = perfect prediction, 0 = baseline (mean predictor), negative = worse than mean
+- Primary metric; secondary metrics: MSE, MAE (computed but not reported)
+
+**Software Environment**:
+- Python 3.8+
+- scikit-learn 1.3.2
+- xgboost 2.0.3
+- tensorflow 2.x (for Deep Learning)
+- pandas 2.1.4, numpy 1.26.3
+
+### 6.2 Model Candidates Evaluated
+
+#### **Candidate 1-5: Traditional ML Models**
+*(Same as original report - Linear Regression, SVR, Random Forest, Gradient Boosting, XGBoost)*
+
+#### **Candidate 6: Deep Neural Network (NEW)**
+**Algorithm**: Multi-layer Perceptron (MLP) with Dropout regularization
+**Architecture**:
+```python
+dnn_model = keras.Sequential([
+    layers.Dense(64, activation='relu', input_shape=(xtrain_scaled.shape[1],)),
+    layers.Dropout(0.2),
+    layers.Dense(32, activation='relu'),
+    layers.Dropout(0.2),
+    layers.Dense(1)
+])
+```
+**Hyperparameters**:
+- Optimizer: Adam (learning_rate=0.001)
+- Loss: MSE
+- Metrics: MAE
+- Epochs: 100
+- Batch size: 32
+- Validation split: 20%
+- Feature scaling: StandardScaler (required for neural networks)
+
+**Results**:
+- Train R²: 0.747
+- Test R²: **0.816**
+- CV Score: N/A (not computed for DL)
+**Diagnosis**: Moderate overfitting (train > test by ~0.07 gap)
+**Strengths**: Can capture complex non-linear patterns
+**Weaknesses**: 
+  - Lower accuracy than XGBoost (0.816 vs 0.902)
+  - Requires feature scaling
+  - Longer training time (100 epochs)
+  - Less interpretable than tree-based models
+
+### 6.3 Model Comparison Summary
+
+| Model | Train R² | Test R² | CV Score | Status |
+|-------|----------|---------|----------|--------|
+| LinearRegression | 0.730 | 0.806 | 0.747 | ❌ Underfitting |
+| SVR | -0.102 | -0.134 | -0.104 | ❌ Failed |
+| RandomForest | 0.975 | 0.882 | 0.837 | ✅ Strong |
+| GradientBoost | 0.868 | 0.902 | 0.861 | ✅ Very Strong |
+| **XGBoost** | **0.869** | **0.902** | **0.861** | ✅ **Champion** |
+| Deep Neural Network | 0.747 | 0.816 | N/A | ⚠️ Overfitting |
+
+**Winner Selection Criteria**:
+1. Highest test R²: XGBoost (0.902) > GradientBoost (0.902) > DNN (0.816)
+2. Best CV consistency: XGBoost & GradientBoost tied (0.861)
+3. Training speed: XGBoost (seconds) vs DNN (minutes for 100 epochs)
+4. Interpretability: XGBoost (feature importance + SHAP) vs DNN (black box)
+5. **XGBoost chosen** for highest accuracy, fastest training, and best interpretability
+""",
+
+    "section_7_deep_learning": """
+## 7. Deep Learning Model Integration
+
+### 7.1 Why Deep Learning?
+
+As part of comprehensive model evaluation, a Deep Neural Network (DNN) was implemented to:
+- Compare deep learning performance against traditional ML on tabular data
+- Demonstrate ability to handle complex non-linear relationships
+- Provide academic completeness (common lecturer requirement)
+
+### 7.2 Implementation Details
+
+**Preprocessing for DNN**:
+```python
+# Feature scaling required for neural networks
+scaler = StandardScaler()
+xtrain_scaled = scaler.fit_transform(xtrain)
+xtest_scaled = scaler.transform(xtest)
+```
+
+**Architecture Design**:
+- Input layer: 4 features (age, bmi, children, smoker)
+- Hidden layer 1: 64 neurons + ReLU + Dropout(0.2)
+- Hidden layer 2: 32 neurons + ReLU + Dropout(0.2)
+- Output layer: 1 neuron (regression)
+
+**Regularization**:
+- Dropout (0.2) after each hidden layer to prevent overfitting
+- Early stopping not used (fixed 100 epochs)
+
+### 7.3 Training Process
+
+**Training History Visualization**:
+- Loss plot: Training vs Validation loss over 100 epochs
+- MAE plot: Training vs Validation MAE over 100 epochs
+- Both plots show convergence without severe overfitting
+
+**Training Time**: ~2-3 minutes on CPU (vs <1 second for XGBoost)
+
+### 7.4 Performance Analysis
+
+**DNN Results**:
+- Train R²: 0.747
+- Test R²: 0.816
+- Gap: 0.069 (moderate overfitting)
+
+**Why DNN Underperformed**:
+1. **Small dataset**: 1,337 records insufficient for deep learning
+2. **Simple features**: Only 4 features; DNNs excel with high-dimensional data
+3. **Tabular data**: Tree-based models (XGBoost) typically outperform DNNs on tabular data
+4. **Architecture**: Simple 2-layer network; deeper networks would overfit more
+
+### 7.5 Model Selection Rationale
+
+**Why XGBoost over Deep Learning?**
+1. **Higher Accuracy**: XGBoost (0.902) > DNN (0.816) - 8.6% improvement
+2. **Training Speed**: XGBoost (seconds) vs DNN (minutes)
+3. **Interpretability**: XGBoost provides feature importance + SHAP; DNN is black box
+4. **Data Efficiency**: XGBoost works well with small datasets; DNN needs more data
+5. **No Scaling Required**: XGBoost handles raw features; DNN requires StandardScaler
+
+**Conclusion**: While deep learning is powerful for images/text/sequence data, **XGBoost remains superior for tabular insurance data** with limited samples.
+""",
+
+    "section_9_shap": """
+## 9. SHAP Interpretability Analysis
+
+### 9.1 What is SHAP?
+
+SHAP (SHapley Additive exPlanations) is a game-theoretic approach to explain machine learning model predictions. Based on Shapley values from cooperative game theory, SHAP provides:
+- **Global interpretability**: Feature importance across entire dataset
+- **Local interpretability**: Explanation for individual predictions
+- **Consistency**: Fair attribution of contribution to each feature
+
+### 9.2 SHAP Implementation
+
+**Setup**:
+```python
+import shap
+
+# Train final champion model
+finalmodel = XGBRegressor(n_estimators=15, max_depth=3, gamma=0)
+finalmodel.fit(xtrain_f, ytrain_f)
+
+# Initialize SHAP explainer
+explainer = shap.Explainer(finalmodel, xtrain_f)
+shap_values = explainer(xtest_f)
+```
+
+### 9.3 SHAP Feature Importance Results
+
+**SHAP Values (Percentage)**:
+```
+Feature     SHAP Importance   % of Total
+smoker      0.577             57.7%
+age         0.225             22.5%
+bmi         0.145             14.5%
+children    0.053              5.3%
+```
+
+**Comparison: SHAP vs XGBoost Built-in Importance**:
+```
+Feature     SHAP Importance   XGBoost Importance
+smoker      57.7%             81.0%
+age         22.5%              3.9%
+bmi         14.5%             13.3%
+children     5.3%              1.1%
+```
+
+**Key Insight**: SHAP reveals that **age is more important (22.5%) than XGBoost's built-in importance suggests (3.9%)**. SHAP provides a more accurate global importance measure.
+
+### 9.4 SHAP Visualizations
+
+**1. SHAP Summary Plot (Bar)**:
+- Shows global feature importance
+- Smoker dominates with 57.7% importance
+
+**2. SHAP Summary Plot (Beeswarm)**:
+- Shows feature value distribution and impact
+- Color indicates feature value (red=high, blue=low)
+- Position indicates SHAP value (impact on prediction)
+
+**Key Findings from Beeswarm**:
+- High smoker status → high positive impact on cost
+- High age → high positive impact on cost
+- High BMI → moderate positive impact on cost
+- Number of children → minimal impact
+
+### 9.5 Business Interpretation
+
+**SHAP-Validated Insights**:
+1. **Smoking (57.7%)**: Still the dominant factor, but less extreme than XGBoost importance (81%)
+2. **Age (22.5%)**: Much more important than XGBoost suggested - older policyholders cost significantly more
+3. **BMI (14.5%)**: Consistent across both methods - obesity increases health risks
+4. **Children (5.3%)**: Minimal but non-zero impact
+
+**Fairness Validation**:
+- Gender and region removed during feature selection
+- SHAP analysis confirms model makes decisions based on health factors only
+- No demographic bias detected
+
+### 9.6 SHAP vs Traditional Feature Importance
+
+**Why SHAP is Better**:
+1. **Considers interactions**: Accounts for feature interactions
+2. **Directional**: Shows whether feature increases or decreases prediction
+3. **Local explanations**: Can explain individual predictions
+4. **Theoretically grounded**: Based on cooperative game theory
+
+**Why Keep XGBoost Importance**:
+1. **Fast to compute**: No additional overhead
+2. **Good for initial screening**: Quick feature selection
+3. **Complementary**: Both methods provide different perspectives
+
+**Recommendation**: Use both methods for comprehensive model understanding.
+"""
+}

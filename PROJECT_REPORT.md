@@ -5,9 +5,11 @@
 
 ## Executive Summary
 
-This report documents the complete development lifecycle of a machine learning-powered web application for predicting medical insurance costs. The project implements an XGBoost regression model achieving **90.1% test R² accuracy** on a dataset of 1,338 insurance records. The model identifies smoking status as the dominant predictor (81% feature importance), with BMI (13%), age (4%), and number of children (1%) contributing secondary predictive power.
+This report documents the complete development lifecycle of a machine learning-powered web application for predicting medical insurance costs. The project implements a comprehensive model evaluation pipeline comparing **6 machine learning and deep learning approaches**, with XGBoost achieving **90.2% test R² accuracy** on a dataset of 1,337 insurance records. The project integrates **SHAP (SHapley Additive exPlanations)** for model interpretability, revealing that smoking status is the dominant predictor (57.7% SHAP importance), followed by age (22.5%), BMI (14.5%), and number of children (5.3%).
 
-**Key Result**: Final model parameters: `n_estimators=15, max_depth=3, gamma=0`
+**Key Achievement**: Evaluated 6 models (Linear Regression, SVR, Random Forest, Gradient Boosting, XGBoost, Deep Neural Network) and selected XGBoost as champion based on superior accuracy, training speed, and interpretability.
+
+**Final Model**: `XGBRegressor(n_estimators=15, max_depth=3, gamma=0)` with R²=0.902 on test set
 
 ---
 
@@ -18,17 +20,19 @@ This report documents the complete development lifecycle of a machine learning-p
 3. Data Preprocessing Pipeline
 4. Exploratory Data Analysis (EDA)
 5. Feature Engineering & Selection
-6. Model Development & Comparative Analysis
-7. XGBoost Model Deep Dive (Winner)
-8. Model Persistence & Serialization
-9. Streamlit Web Application Architecture
-10. Performance Metrics & Validation
-11. Model Interpretability & Insights
-12. Technical Stack & Dependencies
-13. Deployment Architecture
-14. Project Structure & Organization
-15. Future Enhancement Recommendations
-16. Limitations & Constraints
+6. Model Development & Comparative Analysis (6 Models)
+7. Deep Learning Model Integration
+8. XGBoost Model Deep Dive (Winner)
+9. SHAP Interpretability Analysis
+10. Model Persistence & Serialization
+11. Streamlit Web Application Architecture
+12. Performance Metrics & Validation
+13. Model Interpretability & Insights
+14. Technical Stack & Dependencies
+15. Deployment Architecture
+16. Project Structure & Organization
+17. Future Enhancement Recommendations
+18. Limitations & Constraints
 
 ---
 
@@ -52,7 +56,7 @@ Health insurance premium calculation is a complex regression problem involving m
 
 ### 1.4 Dataset Source
 - **Origin**: Hugging Face dataset (`adegoke655/Insurance`)
-- **Size**: 1,338 records × 7 columns
+- **Size**: 1,338 records × 7 columns (1,337 after duplicate removal)
 - **Period**: Not specified (cross-sectional)
 - **License**: Public/Academic use
 
@@ -65,12 +69,12 @@ Health insurance premium calculation is a complex regression problem involving m
 | Column | Type | Description | Statistics |
 |--------|------|-------------|------------|
 | `age` | int64 | Policyholder age (years) | Min: 18, Max: 64, Mean: 39.2 |
-| `sex` | object | Gender (male/female) | Male: ~50%, Female: ~50% |
+| `sex` | object | Gender (male/female) | Male: 50.5%, Female: 49.5% |
 | `bmi` | float64 | Body Mass Index | Min: 15.96, Max: 53.13, Mean: 30.66 |
 | `children` | int64 | Number of dependents | Min: 0, Max: 5, Mean: 1.09 |
 | `smoker` | object | Smoking status (yes/no) | Smokers: 20.5%, Non-smokers: 79.5% |
 | `region` | object | Geographic region (4 categories) | Balanced distribution |
-| `charges` | float64 | Annual insurance cost (target) | Min: $1,122, Max: $63,771, Mean: $13,271 |
+| `charges` | float64 | Annual insurance cost (target) | Min: $1,122, Max: $63,770, Mean: $13,279 |
 
 ### 2.2 Data Quality Assessment
 
@@ -176,7 +180,7 @@ Y = df[['charges']]               # Target
 xtrain, xtest, ytrain, ytest = train_test_split(
     X, Y, test_size=0.2, random_state=42
 )
-# Train: 1,070 samples, Test: 267 samples (80/20 split)
+# Train: 1,069 samples, Test: 268 samples (80/20 split)
 ```
 
 ### 3.2 Preprocessed Dataset Characteristics
@@ -1611,7 +1615,7 @@ caching (Streamlit) | Storing function output to avoid recomputation
 **Location**: Uganda  
  **License**: Educational/Portfolio Use (not open-source licensed)  
 **Live App**: https://insurance-cost-prediction-model.streamlit.app/  
-**GitHub**: (Not provided – user should add)
+**GitHub**: 
 
 ---
 
