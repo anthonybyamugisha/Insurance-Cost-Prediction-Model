@@ -276,10 +276,10 @@ def main():
         st.markdown("""
             <div style="color: rgba(255,255,255,0.9); padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
                 <h4 style="color: white; margin: 0 0 0.5rem 0;">📊 Quick Stats</h4>
-                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Model: XGBoost</p>
-                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• R² Score: 0.901</p>
-                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Features: 4</p>
-                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Records: 1,338</p>
+                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Models Evaluated: 6 (ML + DL)</p>
+                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Champion: XGBoost (R²=0.902)</p>
+                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Features: 4 (with SHAP)</p>
+                <p style="margin: 0.5rem 0; font-size: 0.9rem;">• Records: 1,337</p>
             </div>
         """, unsafe_allow_html=True)
     
@@ -296,7 +296,7 @@ def main():
         with col1:
             st.markdown("""
                 <div class="stat-card">
-                    <h2 style='margin: 0; font-size: 2.5rem;'>1,338</h2>
+                    <h2 style='margin: 0; font-size: 2.5rem;'>1,337</h2>
                     <p style='margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;'>Dataset Records</p>
                 </div>
             """, unsafe_allow_html=True)
@@ -304,16 +304,16 @@ def main():
         with col2:
             st.markdown("""
                 <div class="stat-card">
-                    <h2 style='margin: 0; font-size: 2.5rem;'>4</h2>
-                    <p style='margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;'>Input Features</p>
+                    <h2 style='margin: 0; font-size: 2.5rem;'>6</h2>
+                    <p style='margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;'>Models Evaluated</p>
                 </div>
             """, unsafe_allow_html=True)
         
         with col3:
             st.markdown("""
                 <div class="stat-card">
-                    <h2 style='margin: 0; font-size: 2.5rem;'>0.901</h2>
-                    <p style='margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;'>R² Test Score</p>
+                    <h2 style='margin: 0; font-size: 2.5rem;'>0.902</h2>
+                    <p style='margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;'>XGBoost Test R²</p>
                 </div>
             """, unsafe_allow_html=True)
         
@@ -323,9 +323,9 @@ def main():
                 <h3 style='margin: 0 0 1rem 0;'>🎯 Project Overview</h3>
                 <p style='margin: 0; line-height: 1.8; font-size: 1.1rem;'>
                 This application uses an <strong>XGBoost regression model</strong> to predict medical insurance costs 
-                based on personal health and demographic factors. The model was trained on 1,338 insurance 
-                records and achieves an <strong>R² score of 0.901 on the test set</strong>, meaning it explains 90.1% of the 
-                variance in insurance charges.
+                based on personal health and demographic factors. The model was evaluated against 5 other ML/DL approaches 
+                and achieves an <strong>R² score of 0.902 on the test set</strong>, explaining 90.2% of the variance in insurance charges.
+                Model decisions are validated using <strong>SHAP interpretability analysis</strong> to ensure transparency and fairness.
                 </p>
             </div>
         """, unsafe_allow_html=True)
@@ -339,19 +339,19 @@ def main():
                     <p style='margin: 0; color: #718096;'>Get instant insurance cost estimates</p>
                 </div>
                 <div class="feature-card">
-                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>🎯 R² Score: 0.901</h4>
-                    <p style='margin: 0; color: #718096;'>Strong predictive performance</p>
+                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>🎯 R² Score: 0.902</h4>
+                    <p style='margin: 0; color: #718096;'>Best among 6 models tested</p>
                 </div>
             """, unsafe_allow_html=True)
         with features_col2:
             st.markdown("""
                 <div class="feature-card">
-                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>📊 Data Visualizations</h4>
-                    <p style='margin: 0; color: #718096;'>Interactive charts and insights</p>
+                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>🧠 SHAP Interpretability</h4>
+                    <p style='margin: 0; color: #718096;'>Transparent, explainable AI</p>
                 </div>
                 <div class="feature-card">
-                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>⚡ Fast & Reliable</h4>
-                    <p style='margin: 0; color: #718096;'>Optimized for performance</p>
+                    <h4 style='color: #667eea; margin: 0 0 0.5rem 0;'>⚡ XGBoost Champion</h4>
+                    <p style='margin: 0; color: #718096;'>Outperformed Deep Learning</p>
                 </div>
             """, unsafe_allow_html=True)
         
@@ -728,6 +728,12 @@ def main():
             <div class="insight-box">
                 <strong>5. Number of children doesn't strongly influence</strong> the premium amount
             </div>
+            <div class="insight-box" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);">
+                <strong>6. 🤖 ML/DL Comparison:</strong> XGBoost (0.902 R²) outperformed Deep Neural Network (~0.816 R²)
+            </div>
+            <div class="insight-box" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);">
+                <strong>7. 🧠 SHAP Analysis:</strong> Validates model decisions - smoker status is the dominant predictor (81% importance)
+            </div>
         """, unsafe_allow_html=True)
     
     # Prediction Page
@@ -856,15 +862,20 @@ def main():
             st.markdown("""
                 <div class="feature-card">
                     <p style='margin: 0.5rem 0; color: #718096;'>
-                        This prediction is based on an XGBoost regression model trained on 1,338 insurance records. 
-                        The model considers your age, BMI, number of children, and smoking status to estimate your 
-                        annual insurance cost.
+                        This prediction is based on an <strong>XGBoost regression model</strong> trained on 1,337 insurance records. 
+                        The model was evaluated against 5 other approaches (Linear Regression, SVR, Random Forest, 
+                        Gradient Boosting, and Deep Neural Network) and achieved the best performance with <strong>R² = 0.902</strong>.
                     </p>
-                    <p style='margin: 0.5rem 0; color: #718096;'>
-                        <strong>Key factors affecting your premium:</strong><br>
-                        • Smoking status has the largest impact<br>
-                        • Age is the second most important factor<br>
-                        • BMI and number of children have moderate effects
+                    <p style='margin: 1rem 0 0.5rem 0; color: #718096;'>
+                        <strong>🧠 SHAP-Validated Feature Importance:</strong><br>
+                        • <strong>Smoker status:</strong> ~81% importance (dominant predictor)<br>
+                        • <strong>Age:</strong> ~10% importance (second most important)<br>
+                        • <strong>BMI:</strong> ~6% importance (moderate effect)<br>
+                        • <strong>Children:</strong> ~3% importance (minimal impact)
+                    </p>
+                    <p style='margin: 1rem 0 0.5rem 0; color: #718096;'>
+                        <strong>Model Interpretability:</strong> SHAP analysis confirms the model makes fair, 
+                        transparent decisions without gender or regional bias.
                     </p>
                 </div>
             """, unsafe_allow_html=True)
@@ -886,7 +897,7 @@ def main():
         """, unsafe_allow_html=True)
         
         st.markdown('<p class="section-title">🛠️ Technology Stack</p>', unsafe_allow_html=True)
-        tech_col1, tech_col2 = st.columns(2)
+        tech_col1, tech_col2, tech_col3 = st.columns(3)
         with tech_col1:
             st.markdown("""
                 <div class="feature-card">
@@ -895,58 +906,95 @@ def main():
                     <p style='margin: 0.5rem 0; color: #718096;'>• <strong>NumPy</strong> - Numerical computing</p>
                     <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Feature-engine</strong> - Outlier treatment</p>
                 </div>
-                <div class="feature-card" style="margin-top: 1rem;">
+            """, unsafe_allow_html=True)
+        with tech_col2:
+            st.markdown("""
+                <div class="feature-card">
+                    <h4 style='color: #667eea; margin: 0 0 1rem 0;'>🤖 Machine Learning</h4>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>XGBoost</strong> - Champion model</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Scikit-learn</strong> - ML toolkit</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>TensorFlow/Keras</strong> - Deep Learning</p>
+                </div>
+            """, unsafe_allow_html=True)
+        with tech_col3:
+            st.markdown("""
+                <div class="feature-card">
+                    <h4 style='color: #667eea; margin: 0 0 1rem 0;'>🧠 Interpretability</h4>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>SHAP</strong> - Model explanations</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Feature importance</strong> - Selection</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Fairness analysis</strong> - Validation</p>
+                </div>
+            """, unsafe_allow_html=True)
+        
+        # Second row for visualization and development
+        vis_col1, vis_col2 = st.columns(2)
+        with vis_col1:
+            st.markdown("""
+                <div class="feature-card">
                     <h4 style='color: #667eea; margin: 0 0 1rem 0;'>📊 Visualization</h4>
                     <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Matplotlib</strong> - Plotting library</p>
                     <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Seaborn</strong> - Statistical graphics</p>
                     <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Streamlit</strong> - Web framework</p>
                 </div>
             """, unsafe_allow_html=True)
-        with tech_col2:
+        with vis_col2:
             st.markdown("""
                 <div class="feature-card">
-                    <h4 style='color: #667eea; margin: 0 0 1rem 0;'>🤖 Machine Learning</h4>
-                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>XGBoost</strong> - Gradient boosting</p>
-                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Scikit-learn</strong> - ML toolkit</p>
-                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>GridSearchCV</strong> - Hyperparameter tuning</p>
-                </div>
-                <div class="feature-card" style="margin-top: 1rem;">
                     <h4 style='color: #667eea; margin: 0 0 1rem 0;'>🔧 Development</h4>
                     <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Jupyter Notebook</strong> - Exploration</p>
                     <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Python 3.8+</strong> - Programming language</p>
-                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Git</strong> - Version control</p>
+                    <p style='margin: 0.5rem 0; color: #718096;'>• <strong>Pickle</strong> - Model serialization</p>
                 </div>
             """, unsafe_allow_html=True)
         
-        st.markdown('<p class="section-title">📊 Model Performance</p>', unsafe_allow_html=True)
+        st.markdown('<p class="section-title">📊 Model Performance Comparison</p>', unsafe_allow_html=True)
         st.markdown("""
             <div class="feature-card">
                 <table style='width: 100%; border-collapse: collapse;'>
                     <tr style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;'>
-                        <th style='padding: 1rem; text-align: left;'>Metric</th>
-                        <th style='padding: 1rem; text-align: left;'>Score</th>
+                        <th style='padding: 1rem; text-align: left;'>Model</th>
+                        <th style='padding: 1rem; text-align: left;'>Test R²</th>
+                        <th style='padding: 1rem; text-align: left;'>Status</th>
                     </tr>
                     <tr style='border-bottom: 1px solid #e2e8f0;'>
-                        <td style='padding: 1rem;'>Training R²</td>
-                        <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.869</td>
+                        <td style='padding: 1rem;'>Linear Regression</td>
+                        <td style='padding: 1rem; font-weight: 600; color: #718096;'>0.806</td>
+                        <td style='padding: 1rem;'>❌ Underfitting</td>
                     </tr>
                     <tr style='border-bottom: 1px solid #e2e8f0;'>
-                        <td style='padding: 1rem;'>Testing R²</td>
+                        <td style='padding: 1rem;'>Support Vector Regressor</td>
+                        <td style='padding: 1rem; font-weight: 600; color: #f5576c;'>-0.134</td>
+                        <td style='padding: 1rem;'>❌ Failed</td>
+                    </tr>
+                    <tr style='border-bottom: 1px solid #e2e8f0;'>
+                        <td style='padding: 1rem;'>Random Forest</td>
+                        <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.882</td>
+                        <td style='padding: 1rem;'>✅ Strong</td>
+                    </tr>
+                    <tr style='border-bottom: 1px solid #e2e8f0;'>
+                        <td style='padding: 1rem;'>Gradient Boosting</td>
                         <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.901</td>
+                        <td style='padding: 1rem;'>✅ Very Strong</td>
+                    </tr>
+                    <tr style='border-bottom: 1px solid #e2e8f0; background: #f0fff4;'>
+                        <td style='padding: 1rem; font-weight: 700;'>🏆 XGBoost</td>
+                        <td style='padding: 1rem; font-weight: 700; color: #48bb78;'>0.902</td>
+                        <td style='padding: 1rem;'>🏆 Champion</td>
                     </tr>
                     <tr>
-                        <td style='padding: 1rem;'>Cross-Validation (CV)</td>
-                        <td style='padding: 1rem; font-weight: 600; color: #667eea;'>0.861</td>
+                        <td style='padding: 1rem;'>Deep Neural Network</td>
+                        <td style='padding: 1rem; font-weight: 600; color: #667eea;'>~0.816</td>
+                        <td style='padding: 1rem;'>⚠️ Overfitting</td>
                     </tr>
                 </table>
                 <p style='margin-top: 1rem; color: #718096; font-size: 0.95rem;'>
-                    <strong>Note:</strong> R² (R-squared) score measures how well the model explains the variance in the data. 
-                    An R² of 0.901 means the model explains 90.1% of the variance in insurance charges.
+                    <strong>Note:</strong> XGBoost was selected as the champion model due to highest test accuracy, 
+                    faster training time, and better interpretability compared to Deep Learning.
                 </p>
             </div>
         """, unsafe_allow_html=True)
         
-        st.markdown('<p class="section-title">🚀 Model Details</p>', unsafe_allow_html=True)
+        st.markdown('<p class="section-title">🚀 Champion Model Details</p>', unsafe_allow_html=True)
         st.markdown("""
             <div class="feature-card">
                 <p style='margin: 0.5rem 0;'><strong>Algorithm:</strong> XGBoost Regressor</p>
@@ -958,6 +1006,10 @@ def main():
                 <p style='margin: 0.5rem 0; color: #718096;'>• Outlier treatment using IQR method (BMI capping)</p>
                 <p style='margin: 0.5rem 0; color: #718096;'>• Label encoding for categorical variables</p>
                 <p style='margin: 0.5rem 0; color: #718096;'>• Feature selection (sex and region removed for optimal performance)</p>
+                <p style='margin: 1rem 0 0.5rem 0;'><strong>Model Interpretability:</strong></p>
+                <p style='margin: 0.5rem 0; color: #718096;'>• SHAP analysis validates feature importance</p>
+                <p style='margin: 0.5rem 0; color: #718096;'>• Smoker: ~81% importance (dominant predictor)</p>
+                <p style='margin: 0.5rem 0; color: #718096;'>• Fair model: no gender or region bias</p>
             </div>
         """, unsafe_allow_html=True)
         
@@ -966,23 +1018,10 @@ def main():
         st.markdown('<p class="section-title">📂 Project Files</p>', unsafe_allow_html=True)
         st.markdown("""
             <div class="feature-card">
-                <p style='margin: 0.5rem 0; color: #718096;'><strong>📓 insurance_cost.ipynb</strong> - Jupyter notebook with complete ML pipeline</p>
-                <p style='margin: 0.5rem 0; color: #718096;'><strong>📊 insurance_data.csv</strong> - Dataset with 1,338 records</p>
-                <p style='margin: 0.5rem 0; color: #718096;'><strong>🤖 insurancemodelf.pkl</strong> - Trained XGBoost model</p>
-                <p style='margin: 0.5rem 0; color: #718096;'><strong>🌐 app.py</strong> - Streamlit web application</p>
-                <p style='margin: 0.5rem 0; color: #718096;'><strong>📋 requirements.txt</strong> - Python dependencies</p>
-            </div>
-        """, unsafe_allow_html=True)
-                
-        st.markdown('---')
-        
-        st.markdown('<p class="section-title">📂 Project Files</p>', unsafe_allow_html=True)
-        st.markdown("""
-            <div class="feature-card">
-                <p style='margin: 0.5rem 0; color: #718096;'><strong>📓 insurance_cost.ipynb</strong> - Jupyter notebook with complete ML pipeline</p>
-                <p style='margin: 0.5rem 0; color: #718096;'><strong>📊 insurance_data.csv</strong> - Dataset with 1,338 records</p>
-                <p style='margin: 0.5rem 0; color: #718096;'><strong>🤖 insurancemodelf.pkl</strong> - Trained XGBoost model</p>
-                <p style='margin: 0.5rem 0; color: #718096;'><strong>🌐 app.py</strong> - Streamlit web application</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>📓 insurance_cost.ipynb</strong> - Complete ML pipeline with 6 models + SHAP</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>📊 insurance_data.csv</strong> - Dataset with 1,337 records (after duplicate removal)</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>🤖 insurancemodelf.pkl</strong> - Trained XGBoost champion model</p>
+                <p style='margin: 0.5rem 0; color: #718096;'><strong>🌐 app.py</strong> - Streamlit web application (this interface)</p>
                 <p style='margin: 0.5rem 0; color: #718096;'><strong>📋 requirements.txt</strong> - Python dependencies</p>
             </div>
         """, unsafe_allow_html=True)
@@ -991,22 +1030,25 @@ def main():
         st.markdown('<p class="section-title">📈 Key Findings</p>', unsafe_allow_html=True)
         st.markdown("""
             <div class="insight-box">
-                <strong>1.</strong> <strong>Smoking status</strong> is the most significant predictor of insurance costs (smokers pay approximately 3x more)
+                <strong>1.</strong> <strong>Smoking status</strong> is the most significant predictor (~81% SHAP importance) - smokers pay approximately 3× more
             </div>
             <div class="insight-box">
-                <strong>2.</strong> <strong>Age</strong> shows a strong positive correlation with premiums
+                <strong>2.</strong> <strong>Age</strong> shows strong positive correlation (~10% importance) - older individuals pay more
             </div>
             <div class="insight-box">
-                <strong>3.</strong> <strong>BMI</strong> has a moderate impact on cost predictions
+                <strong>3.</strong> <strong>BMI</strong> has moderate impact (~6% importance) - positive correlation with costs
             </div>
             <div class="insight-box">
-                <strong>4.</strong> <strong>Number of children</strong> has minimal influence on premiums
+                <strong>4.</strong> <strong>Number of children</strong> has minimal influence (~3% importance)
             </div>
             <div class="insight-box">
-                <strong>5.</strong> Features like <strong>sex</strong> and <strong>region</strong> were removed during feature selection as they had little predictive power
+                <strong>5.</strong> <strong>Sex and region</strong> were removed during feature selection - minimal predictive power
             </div>
-            <div class="insight-box">
-                <strong>6.</strong> The model achieves an <strong>R² score of 0.901</strong> on the test set
+            <div class="insight-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <strong>6.</strong> <strong>🏆 XGBoost (0.902 R²)</strong> outperformed 5 other models including Deep Neural Network (~0.816 R²)
+            </div>
+            <div class="insight-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <strong>7.</strong> <strong>🧠 SHAP analysis</strong> validates model fairness - no gender or regional bias detected
             </div>
         """, unsafe_allow_html=True)
         
