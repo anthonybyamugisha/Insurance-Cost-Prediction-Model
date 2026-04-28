@@ -1,20 +1,20 @@
-# 🏥 Insurance Cost Prediction Model
+# Insurance Cost Prediction Model
 
 A comprehensive machine learning web application that predicts medical insurance costs using XGBoost with **90.2% accuracy**, evaluated against 5 other ML/DL models and validated with SHAP interpretability analysis.
 
-## 📊 Project Overview
+## Project Overview
 
 This application predicts insurance premiums based on personal health factors using an XGBoost regression model trained on **1,337 insurance records**. The project evaluates **6 machine learning and deep learning approaches**, with XGBoost selected as the champion model. **SHAP analysis** validates model decisions and ensures transparency.
 
-## ✨ Features
+##  Features
 
-- 🎯 **Real-time Predictions**: Get instant insurance cost estimates
-- 📊 **Interactive Visualizations**: Explore data through beautiful charts
-- 🎨 **Modern UI**: Professional, card-based interface with smooth animations
-- 🏆 **90.2% Accuracy**: Best among 6 models evaluated (ML + DL)
-- 🧠 **SHAP Interpretability**: Transparent, explainable AI decisions
-- 🤖 **6 Models Compared**: LR, SVR, RF, GB, XGB, Deep Neural Network
-- 📈 **Data Insights**: Key findings and statistical analysis
+-  **Real-time Predictions**: Get instant insurance cost estimates
+-  **Interactive Visualizations**: Explore data through beautiful charts
+-  **Modern UI**: Professional, card-based interface with smooth animations
+-  **90.2% Accuracy**: Best among 6 models evaluated (ML + DL)
+-  **SHAP Interpretability**: Transparent, explainable AI decisions
+-  **6 Models Compared**: LR, SVR, RF, GB, XGB, Deep Neural Network
+-  **Data Insights**: Key findings and statistical analysis
 
 ## 🚀 Deployment on Streamlit Cloud
 
@@ -77,7 +77,7 @@ streamlit run app.py
 - xgboost==2.0.3
 - feature-engine==1.6.1
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 INSURANCE/
@@ -93,7 +93,7 @@ INSURANCE/
 └── .gitignore                 # Git ignore rules
 ```
 
-## 🎯 Model Performance
+##  Model Performance
 
 ### Comprehensive Model Comparison
 
