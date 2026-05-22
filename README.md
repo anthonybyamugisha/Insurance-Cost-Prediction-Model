@@ -55,7 +55,7 @@ Make sure you have the following files in your GitHub repository:
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/anthonybyamugisha/Insurance-Cost-Prediction-Model.git
 cd INSURANCE
 
 # Install dependencies
