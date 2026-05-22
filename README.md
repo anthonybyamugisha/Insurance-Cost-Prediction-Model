@@ -6,17 +6,17 @@ A comprehensive machine learning web application that predicts medical insurance
 
 This application predicts insurance premiums based on personal health factors using an XGBoost regression model trained on **1,337 insurance records**. The project evaluates **6 machine learning and deep learning approaches**, with XGBoost selected as the champion model. **SHAP analysis** validates model decisions and ensures transparency.
 
-##  Features
+## Features
 
--  **Real-time Predictions**: Get instant insurance cost estimates
--  **Interactive Visualizations**: Explore data through beautiful charts
--  **Modern UI**: Professional, card-based interface with smooth animations
--  **90.2% Accuracy**: Best among 6 models evaluated (ML + DL)
--  **SHAP Interpretability**: Transparent, explainable AI decisions
--  **6 Models Compared**: LR, SVR, RF, GB, XGB, Deep Neural Network
--  **Data Insights**: Key findings and statistical analysis
+- **Real-time Predictions**: Get instant insurance cost estimates
+- **Interactive Visualizations**: Explore data through beautiful charts
+- **Modern UI**: Professional, card-based interface with smooth animations
+- **90.2% Accuracy**: Best among 6 models evaluated (ML + DL)
+- **SHAP Interpretability**: Transparent, explainable AI decisions
+- **6 Models Compared**: LR, SVR, RF, GB, XGB, Deep Neural Network
+- **Data Insights**: Key findings and statistical analysis
 
-## 🚀 Deployment on Streamlit Cloud
+## Deployment on Streamlit Cloud
 
 ### Prerequisites
 
@@ -49,7 +49,7 @@ Make sure you have the following files in your GitHub repository:
    - Streamlit Cloud will automatically install packages from `requirements.txt`
    - Check the deployment logs for any errors
 
-## 🛠️ Local Development
+## Local Development
 
 ### Installation
 
@@ -77,7 +77,7 @@ streamlit run app.py
 - xgboost==2.0.3
 - feature-engine==1.6.1
 
-##  Project Structure
+## Project Structure
 
 ```
 INSURANCE/
@@ -93,18 +93,18 @@ INSURANCE/
 └── .gitignore                 # Git ignore rules
 ```
 
-##  Model Performance
+## Model Performance
 
 ### Comprehensive Model Comparison
 
 | Model | Train R² | Test R² | CV Score | Status |
 |-------|----------|---------|----------|--------|
-| Linear Regression | 0.730 | 0.806 | 0.747 | ❌ Underfitting |
-| Support Vector Regressor | -0.102 | -0.134 | -0.104 | ❌ Failed |
-| Random Forest | 0.975 | 0.882 | 0.837 | ✅ Strong |
-| Gradient Boosting | 0.868 | 0.902 | 0.861 | ✅ Very Strong |
-| **XGBoost** | **0.869** | **0.902** | **0.861** | 🏆 **Champion** |
-| Deep Neural Network | 0.747 | 0.816 | N/A | ⚠️ Overfitting |
+| Linear Regression | 0.730 | 0.806 | 0.747 | Underfitting |
+| Support Vector Regressor | -0.102 | -0.134 | -0.104 | Failed |
+| Random Forest | 0.975 | 0.882 | 0.837 | Strong |
+| Gradient Boosting | 0.868 | 0.902 | 0.861 | Very Strong |
+| **XGBoost** | **0.869** | **0.902** | **0.861** | **Champion** |
+| Deep Neural Network | 0.747 | 0.816 | N/A | Overfitting |
 
 ### Champion Model Details
 
@@ -116,7 +116,7 @@ INSURANCE/
 - **Features Used**: 4 (age, bmi, children, smoker)
 - **Features Removed**: sex, region (minimal predictive power)
 
-## 🧠 SHAP Feature Importance
+## SHAP Feature Importance
 
 | Feature | SHAP Importance | Impact |
 |---------|----------------|--------|
@@ -127,7 +127,7 @@ INSURANCE/
 
 **Note**: SHAP analysis validates that the model makes fair decisions without gender or regional bias.
 
-## 📈 Key Insights
+## Key Insights
 
 1. **Smoking status** is the dominant predictor (57.7% SHAP importance) - smokers pay ~3× more
 2. **Age** shows strong positive correlation (22.5% importance) - older = higher costs
@@ -137,7 +137,7 @@ INSURANCE/
 6. **XGBoost (0.902 R²)** outperformed Deep Neural Network (0.816 R²)
 7. **SHAP analysis** confirms model fairness - no demographic bias detected
 
-## 🔧 Technologies Used
+## Technologies Used
 
 - **Frontend**: Streamlit
 - **Data Processing**: Pandas, NumPy
@@ -147,7 +147,7 @@ INSURANCE/
 - **Visualization**: Matplotlib, Seaborn
 - **Feature Engineering**: feature-engine
 
-## 📊 Dataset
+## Dataset
 
 - **Source**: [Hugging Face - Insurance Dataset](https://huggingface.co/datasets/adegoke655/Insurance)
 - **Original Records**: 1,338
@@ -156,11 +156,11 @@ INSURANCE/
 - **Final Features Used**: 4 (age, bmi, children, smoker)
 - **Target**: charges (annual insurance cost in USD)
 
-## 📝 License
+## License
 
 This project is created for portfolio demonstration and educational purposes.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Dataset provided via Hugging Face
 - Built with Streamlit framework
