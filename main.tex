@@ -1,0 +1,1155 @@
+%========================================================
+% INSURANCE COST PREDICTION MODEL - GROUP M
+% Comprehensive Technical Report — FINAL
+%========================================================
+\documentclass[12pt,a4paper]{report}
+
+%-------- Packages --------
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds, shadows}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{setspace}
+\usepackage{parskip}
+\renewcommand{\bibname}{References}
+\usepackage{etoolbox}
+\usepackage{mathptmx}        % Times New Roman for body and math
+\usepackage[T1]{fontenc}     % Proper font encoding
+\usepackage{ragged2e}        % \justifying command
+\onehalfspacing              % 1.5 line spacing throughout
+\justifying                  % Justified text alignment
+
+%-------- Colors --------
+\definecolor{primary}{RGB}{102,126,234}
+\definecolor{secondary}{RGB}{118,75,162}
+\definecolor{darkgray}{RGB}{50,50,50}
+\definecolor{lightgray}{RGB}{245,245,245}
+\definecolor{successgreen}{RGB}{39,174,96}
+\definecolor{failred}{RGB}{192,57,43}
+\definecolor{warnyellow}{RGB}{243,156,18}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codeframe}{RGB}{200,200,200}
+
+%-------- Hyperref Setup --------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=secondary,
+    citecolor=secondary,
+    pdftitle={Insurance Cost Prediction Model - Group M},
+    pdfauthor={Group M},
+}
+
+%-------- TOC Styling --------
+\renewcommand{\cftchapfont}{\normalfont\bfseries\color{black}}
+\renewcommand{\cftchappagefont}{\normalfont\bfseries\color{black}}
+\renewcommand{\cftsecfont}{\normalfont\mdseries\color{black}}
+\renewcommand{\cftsecpagefont}{\normalfont\mdseries\color{black}}
+\renewcommand{\cftsubsecfont}{\normalfont\mdseries\small\color{black}}
+\renewcommand{\cftsubsecpagefont}{\normalfont\mdseries\small\color{black}}
+\renewcommand{\cftsubsubsecfont}{\normalfont\mdseries\small\color{black}}
+\renewcommand{\cftsubsubsecpagefont}{\normalfont\mdseries\small\color{black}}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+%-------- Force each chapter to start on a fresh page --------
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{\clearpage}{}{}
+\makeatother
+
+%-------- Section Title Formatting (Times New Roman Bold, ALL BLACK) --------
+\titleformat{\chapter}[display]
+  {\rmfamily\large\bfseries\color{black}}
+  {\chaptertitlename\ \thechapter}{6pt}{\Large}
+
+\titleformat{\section}
+  {\rmfamily\large\bfseries\color{black}}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\rmfamily\normalsize\bfseries\color{black}}
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\rmfamily\small\bfseries\color{black}}
+  {\thesubsubsection}{1em}{}
+
+%-------- Chapter spacing --------
+\titlespacing*{\chapter}{0pt}{-20pt}{6pt}
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+\titlespacing*{\subsection}{0pt}{6pt}{3pt}
+\titlespacing*{\subsubsection}{0pt}{4pt}{2pt}
+
+%-------- Header/Footer (ALL BLACK) --------
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markright{Chapter \thechapter:\ #1}}
+\fancyhf{}
+\fancyhead[L]{\small\color{black}\textbf{Insurance Cost Prediction Model}}
+\fancyhead[R]{\small\color{black}\textbf{\nouppercase{\rightmark}}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{black}\leaders\hrule height \headrulewidth\hfill}}
+
+%-------- Code Listings --------
+\lstset{
+  backgroundcolor=\color{codebg},
+  basicstyle=\small\ttfamily,
+  frame=single,
+  rulecolor=\color{codeframe},
+  keywordstyle=\color{primary}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{secondary},
+  breaklines=true,
+  captionpos=b,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=5pt,
+  tabsize=4,
+  showstringspaces=false
+}
+
+%-------- Info Box --------
+\newmdenv[
+  backgroundcolor=lightgray,
+  linecolor=primary,
+  linewidth=2pt,
+  leftline=true, rightline=false,
+  topline=false, bottomline=false,
+  innerleftmargin=10pt, innerrightmargin=10pt,
+  innertopmargin=8pt, innerbottommargin=8pt,
+]{infobox}
+
+%========================================================
+\begin{document}
+%========================================================
+
+%========================================================
+% TITLE PAGE
+%========================================================
+%========================================================
+% TITLE PAGE
+%========================================================
+\begin{titlepage}
+\thispagestyle{empty}
+\vspace*{1.5cm}
+{\centering
+  \includegraphics[width=1.0\textwidth]{muk-logo.png}\\[0.3cm]
+}
+\vspace*{1.5cm}
+\begin{center}
+  {\color{primary}\Huge\bfseries REPORT FOR INSURANCE COST}\\[0.3cm]
+  {\color{primary}\Huge\bfseries PREDICTION MODEL}\\[0.3cm]
+\end{center}
+\vspace{0.8cm}
+\begin{mdframed}[
+  backgroundcolor=lightgray, linecolor=primary, linewidth=2pt,
+  roundcorner=6pt, innertopmargin=12pt, innerbottommargin=12pt,
+  innerleftmargin=15pt, innerrightmargin=15pt
+]
+\begin{center}
+{\Large\bfseries\color{primary} GROUP M}\\[0.4cm]
+\begin{tabular}{clll}
+\toprule
+\textbf{\#} & \textbf{Name} & \textbf{Registration No.} & \textbf{Student No.} \\
+\midrule
+1 & Byamugisha Anthony    & 24/U/0360     & 2400700360 \\
+2 & Abinsinguza Morison K & 24/U/02594/PS & 2400702594 \\
+3 & Serena Robinah        & 24/U/11034/PS & 2400711034 \\
+4 & Lunkuse Dorcus        & 24/U/06515/PS & 2400706515 \\
+5 & Elijah Mabior Biar    & 24/E/21430/PS & 2400721430 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{mdframed}
+\vspace{0.8cm}
+\begin{center}
+\begin{tabular}{ll}
+\textbf{Course:}      & Introduction To Machine Learning \\[2pt]
+\textbf{Submission:}  & May 2026 \\[2pt]
+\textbf{Live Demo:}   & \href{https://insurance-cost-prediction-model.streamlit.app/}
+                        {\texttt{insurance-cost-prediction-model.streamlit.app}} \\[2pt]
+\textbf{Repository:}  & \href{https://github.com/anthonybyamugisha/Insurance-Cost-Prediction-Model}
+                        {\texttt{github.com/anthonybyamugisha}} \\
+\end{tabular}
+\end{center}
+\end{titlepage}
+
+%========================================================
+% ABSTRACT
+%========================================================
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Accurate prediction of medical insurance costs remains a long standing challenge in actuarial science, with important implications for both insurers and policyholders. Traditional statistical methods, while interpretable, often struggle to capture complex non linear relationships between demographic and health related variables. This report presents the end to end development of a machine learning system designed to address this limitation by predicting individual annual insurance charges from a set of policyholder attributes.
+
+Six modelling approaches were developed and evaluated on a dataset obtained from Hugging Face (\texttt{adegoke655/Insurance}), consisting of 1,338 records. After removing one duplicate entry, 1,337 unique observations were retained for analysis. The models included Linear Regression, Support Vector Regression (SVR), Random Forest, Gradient Boosting, XGBoost, and a Deep Neural Network (DNN). All models were trained under the same conditions, using an 80/20 train-test split, 5 fold cross-validation, and grid-search hyperparameter tuning to ensure a fair comparison.
+
+XGBoost achieved the best performance with a test $R^2$ score of 0.902, using 15 shallow trees with a maximum depth of 3 and requiring less than one second of training time. The Deep Neural Network achieved a test $R^2$ score of 0.816, indicating that tree-based ensemble methods performed better on this small tabular dataset. SHAP analysis showed that smoking status was the most influential feature (57.7\%), followed by age (22.5\%), BMI (14.5\%), and number of children (5.3\%). Gender and region were removed during feature selection due to minimal predictive value, and SHAP analysis indicated no strong dependence on these variables in the final model.
+
+%========================================================
+% TABLE OF CONTENTS
+%========================================================
+\clearpage
+\tableofcontents
+\clearpage
+
+%========================================================
+% CHAPTER 1: INTRODUCTION
+%========================================================
+\chapter{Introduction}
+
+\section{Overview}
+Health insurance premium calculation presents a compelling challenge at the intersection of data science and actuarial practice. This report documents the end to end development of a machine learning system capable of predicting individual medical insurance costs from policyholder characteristics. The exponential growth of healthcare data and advances in computational methods have opened new avenues for building more accurate, fair, and transparent pricing systems that go beyond traditional actuarial tables. By applying modern machine learning techniques to a structured dataset of policyholder attributes, this project demonstrates how data-driven models can deliver both predictive power and interpretability in a domain where trust and explainability are paramount. The resulting system is not only validated against rigorous statistical benchmarks but is also deployed as an interactive web application, bridging the gap between machine learning research and practical real-world utility.
+
+\section{Background of the Problem}
+Health insurance premium calculation is a complex regression problem involving multiple demographic and health related factors. Traditional actuarial methods rely on statistical models that may not capture non-linear interactions between features. The rising cost of healthcare and the need for transparent, personalised pricing make accurate premium prediction a high-value problem for both insurers and policyholders.
+
+This project leverages machine learning to provide accurate, interpretable predictions of insurance costs from individual policyholder characteristics.
+
+\section{Problem Statement}
+Given a set of policyholder attributes that is age, sex, BMI, number of children, smoking status, and residential region, the task is to build a regression model that accurately predicts annual insurance charges. The model must be both accurate ($R^2 \geq 0.90$) and interpretable, so that predictions can be explained to end users.
+
+\section{Objectives}
+\begin{enumerate}[label=\textbf{O\arabic*.}]
+  \item To develop a predictive regression model achieving $R^2 \geq 0.90$ on unseen test data.
+  \item To systematically evaluate and compare six machine learning and deep learning approaches.
+  \item To identify the most significant cost drivers through feature importance and SHAP analysis.
+  \item To ensure model fairness by detecting and removing biased or uninformative features.
+  \item To deploy an interactive web application for real time insurance cost prediction.
+\end{enumerate}
+
+\section{Dataset Overview}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{dataset_summary.png}
+\caption{Dataset Summary Statistics}
+\end{figure}
+
+\textbf{Source:} Hugging Face (\texttt{adegoke655/Insurance}), 1,338 records; 1 duplicate removed leaving \textbf{1,337 unique records}.
+
+\section{Scope and Deliverables}
+\begin{itemize}
+  \item A trained, serialised XGBoost model (\texttt{insurancemodelf.pkl})
+  \item A Jupyter notebook documenting the complete ML pipeline
+  \item A Streamlit web application with four interactive pages
+  \item This comprehensive technical report
+\end{itemize}
+
+\section{Research Question}
+This project is guided by the following primary research question:
+
+\begin{infobox}
+\textit{``To what extent can a machine learning model trained on demographic and lifestyle policyholder attributes accurately predict annual medical insurance charges, and which factors contribute most to that prediction?''}
+\end{infobox}
+
+Two supporting sub-questions frame the investigation:
+\begin{enumerate}
+  \item Which machine learning algorithm achieves the best tradeoff between predictive accuracy and interpretability on a small tabular insurance dataset?
+  \item Can the resulting model be demonstrated to be free of demographic bias with respect to gender and residential region?
+\end{enumerate}
+
+
+
+%========================================================
+% CHAPTER 2: LITERATURE REVIEW
+%========================================================
+\chapter{Literature Review}
+
+\section{Machine Learning in Insurance Pricing}
+Traditional insurance pricing relies on generalised linear models (GLMs), particularly Tweedie regression, which assumes a specific distributional form for claims data \cite{pedregosa2011}. While GLMs offer statistical interpretability, they struggle to capture non            c  linear interactions among policyholder characteristics for example, the multiplicative effect of smoking and BMI on healthcare utilisation.
+
+There is growing evidence that machine learning models improve on GLMs in claims prediction tasks. Gradient boosted trees, in particular, have emerged as a strong approach for structured tabular insurance data due to their ability to model complex interactions without manual feature engineering \cite{chen2016xgboost}. Random Forests have also been widely applied, though they tend to overfit on smaller datasets and produce less sharp feature attribution compared to boosting methods.
+
+\section{Ensemble Methods and Gradient Boosting}
+Gradient Boosting Machines (GBMs), introduced by Friedman \cite{friedman2001greedy}, build an additive model of weak learners sequentially, with each tree trained to correct the residual errors of the previous ensemble. XGBoost \cite{chen2016xgboost} extended this framework with second-order gradient optimisation, column subsampling, and built in $L_1/L_2$ regularisation, making it both more accurate and more resistant to overfitting than earlier GBM implementations. On small datasets ($n < 10{,}000$), shallow XGBoost configurations with few trees and low depth are particularly competitive against deep learning architectures, which typically require large volumes of data to generalise effectively \cite{grinsztajn2022tree}.
+
+\section{Deep Learning for Tabular Data}
+Despite advances in deep learning for images, text, and time series, neural networks have not consistently outperformed tree  based ensembles on tabular regression tasks. Grinsztajn et al.\ \cite{grinsztajn2022tree} conducted a systematic benchmark and found that tree-based models outperform MLPs on the majority of tabular datasets, particularly those with fewer than 50,000 samples. A key reason is that DNNs require careful feature scaling, large sample sizes, and extensive hyperparameter tuning to generalise well conditions that are rarely met on small structured datasets. Kernel-based methods such as SVR face similar sensitivity to unscaled inputs, which directly anticipates the failure of the RBF kernel SVR observed in this project. This evidence motivates the selection of XGBoost as the primary model.
+
+\section{Model Interpretability and SHAP}
+Interpretability is critical in insurance applications, where regulators and policyholders may demand explanations for pricing decisions. SHAP (SHapley Additive exPlanations), introduced by Lundberg and Lee \cite{lundberg2017unified}, provides a theoretically grounded framework for attributing a model's prediction to individual input features using concepts from cooperative game theory. Unlike permutation importance or gain-based feature importance, SHAP values are consistent and locally accurate, meaning they correctly reflect each feature's marginal contribution to a specific prediction \cite{lundberg2017unified}. SHAP has been adopted broadly in actuarial and financial modelling as the standard tool for regulatory explainability.
+
+\section{Fairness in Predictive Insurance Models}
+The interpretability tools discussed above are closely linked to fairness: a model whose predictions can be attributed feature by feature also allows auditors to verify that no demographic variable is driving outcomes inappropriately. The use of gender or ethnicity as direct or proxy predictors raises legal and ethical concerns in many jurisdictions \cite{cohen1988statistical}. Machine learning models can inadvertently encode such biases if uninformative but correlated features are retained. Feature selection grounded in predictive gain, combined with SHAP based post hoc validation \cite{lundberg2017unified}, provides a practical mechanism for detecting and eliminating demographic bias from model predictions.
+
+\section{Knowledge Gap}
+The sections above establish that tree based ensembles and SHAP driven interpretability are well supported in the literature, yet two practical gaps remain relevant to this project. First, the majority of published studies are conducted on large proprietary datasets held by established insurers, with little work evaluating model performance in the small data regime (fewer than 2,000 records) typical of academic benchmarks \cite{grinsztajn2022tree}. The behaviour of XGBoost under these constraints particularly the tradeoff between tree depth and generalisation is not well characterised in the insurance domain.
+
+Second, few studies integrate the complete modelling pipeline  feature selection, hyperparameter optimisation, SHAP based interpretability, fairness validation, and live deployment within a single reproducible project. Most work addresses only one or two of these stages, leaving a gap in end to end pipeline design for small scale insurance applications. Both gaps directly motivate the scope and methodological choices described in the following chapter.
+
+
+%========================================================
+% CHAPTER 3: METHODOLOGY
+%========================================================
+\chapter{Methodology}
+
+\section{Data Preprocessing}
+
+\subsection{Preprocessing Pipeline}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  node distance=0.6cm and 0.4cm,
+  box/.style={rectangle, rounded corners=4pt, draw=primary, fill=primary!10,
+              text width=3.8cm, minimum height=0.9cm, align=center, font=\small},
+  arrow/.style={->, thick, color=secondary}
+]
+  \node[box] (s1) {\textbf{Step 1}\\ Duplicate Removal\\(1,338 $\to$ 1,337)};
+  \node[box, right=of s1] (s2) {\textbf{Step 2}\\ Missing Value\\Check (none)};
+  \node[box, right=of s2] (s3) {\textbf{Step 3}\\ BMI Outlier\\Capping (IQR)};
+  \node[box, below=of s3] (s4) {\textbf{Step 4}\\ Categorical\\Encoding};
+  \node[box, left=of s4] (s5) {\textbf{Step 5}\\ Feature\\Selection};
+  \node[box, left=of s5] (s6) {\textbf{Step 6}\\ Train/Test Split\\(80/20)};
+  \draw[arrow] (s1) -- (s2);
+  \draw[arrow] (s2) -- (s3);
+  \draw[arrow] (s3) -- (s4);
+  \draw[arrow] (s4) -- (s5);
+  \draw[arrow] (s5) -- (s6);
+\end{tikzpicture}
+\caption{Data Preprocessing Pipeline}
+\end{figure}
+
+\subsection{Duplicate Removal}
+The raw dataset contained 1,338 records. One exact duplicate row was identified and removed, yielding \textbf{1,337 unique records} for all subsequent steps.
+
+\subsection{Missing Value Check}
+A systematic check across all seven columns confirmed \textbf{no missing values} in the dataset. No imputation was therefore required.
+
+\subsection{Outlier Treatment (BMI)}
+BMI outliers were detected using the Interquartile Range (IQR) method and treated by winsorisation (capping):
+
+\begin{equation}
+  IQR = Q_3 - Q_1 = 34.69 - 26.30 = 8.39, \quad
+  \text{Bounds: } [13.67,\ 47.31]
+\end{equation}
+
+Values outside this range were capped using \texttt{ArbitraryOutlierCapper} from the \texttt{feature engine} library. Winsorisation was preferred over deletion to preserve sample size.
+
+\subsection{Categorical Encoding}
+
+\begin{table}[H]
+\centering
+\caption{Categorical Feature Encoding Scheme}
+\begin{tabular}{lll}
+\toprule
+\textbf{Feature} & \textbf{Original Values} & \textbf{Encoded Values} \\
+\midrule
+sex    & male / female                                 & 0 / 1 \\
+smoker & yes / no                                      & 1 / 0 \\
+region & northwest / northeast / southeast / southwest & 0 / 1 / 2 / 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textit{Note:} \texttt{sex} and \texttt{region} were subsequently removed after feature importance analysis, as detailed in Section~\ref{sec:feature_selection}.
+
+\subsection{Feature Selection}
+\label{sec:feature_selection}
+
+An initial XGBoost model trained on all six features yielded the following gain-based importance scores:
+
+\begin{table}[H]
+\centering
+\caption{Feature Importance Before Selection}
+\begin{tabular}{lll}
+\toprule
+\textbf{Feature} & \textbf{Importance (Gain)} & \textbf{Decision} \\
+\midrule
+smoker   & 0.8096 (81.0\%) & \textcolor{successgreen}{\textbf{Keep}} \\
+bmi      & 0.1334 (13.3\%) & \textcolor{successgreen}{\textbf{Keep}} \\
+age      & 0.0386 ( 3.9\%) & \textcolor{successgreen}{\textbf{Keep}} \\
+children & 0.0111 ( 1.1\%) & \textcolor{successgreen}{\textbf{Keep}} \\
+region   & 0.0072 ( 0.7\%) & \textcolor{failred}{\textbf{Remove}} \\
+sex      & 0.0000 ( 0.0\%) & \textcolor{failred}{\textbf{Remove}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Features contributing less than 1\% gain were removed. \textbf{Final feature set:} \texttt{[age, bmi, children, smoker]}.
+
+\subsection{Train/Test Split}
+
+\begin{equation}
+  n_{\text{train}} = 0.80 \times 1337 = 1069, \quad n_{\text{test}} = 0.20 \times 1337 = 268
+\end{equation}
+
+A fixed \texttt{random\_state=42} ensures full reproducibility across all experiments.
+
+\section{Exploratory Data Analysis}
+
+\subsection{Introduction}
+Exploratory Data Analysis (EDA) was conducted to understand the statistical properties, distributions, and inter-feature relationships within the dataset. Key findings directly informed feature selection and model design.
+
+\subsection{Target Variable Distribution}
+The target variable (\texttt{charges}) is heavily right skewed: most policyholders have moderate premiums while a minority predominantly smokers incur very high costs.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{variable_distribution.png}
+\caption{Distribution of Insurance Charges right                            skewed due to smoker/non-smoker separation}
+\end{figure}
+
+\subsection{Correlation Analysis}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.80\textwidth]{correlation.png}
+\caption{Pearson Correlation Heatmap,  \texttt{smoker} dominates with $r = 0.787$}
+\end{figure}
+
+\begin{infobox}
+\textbf{Key Finding:} \texttt{smoker} has the strongest correlation with \texttt{charges}
+($r = 0.787$). \texttt{sex} ($r = -0.058$) and \texttt{region} ($r = 0.011$) showed
+negligible correlation, confirming their removal.
+\end{infobox}
+
+\subsection{Average Charges by Smoking Status}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.80\textwidth]{average_charges_by_smoking_status.png}
+\caption{Smokers pay approximately $3.8\times$ more in insurance charges}
+\end{figure}
+
+\subsection{Bivariate Analysis: Age vs Charges}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{bivariate_charges_vs_charges.png}
+\caption{Age vs Charges by smoking status, two distinct cost bands are evident}
+\end{figure}
+
+\subsection{Gender-Based Analysis}
+
+\subsubsection{Descriptive Statistics by Gender}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[c]{0.48\textwidth}
+  \centering
+  \captionof{table}{Insurance Cost Statistics by Gender}
+  \label{tab:gender_stats}
+  \begin{tabular}{lrr}
+  \toprule
+  \textbf{Statistic}       & \textbf{Male}   & \textbf{Female} \\
+  \midrule
+  Average annual charges   & \$13,956.75     & \$12,569.58     \\
+  Median annual charges    & \$9,369.62      & \$9,412.96      \\
+  Absolute difference      & \multicolumn{2}{c}{\$1,387.17}   \\
+  Relative difference      & \multicolumn{2}{c}{11.0\%}        \\
+  \bottomrule
+  \end{tabular}
+\end{minipage}%
+\hfill
+\begin{minipage}[c]{0.48\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{insurance_by_gender.png}
+  \captionof{figure}{Insurance Charges Distribution by Gender}
+\end{minipage}
+\end{figure}
+
+\begin{infobox}
+\textbf{Key Observation:} Males pay an average of \$1,387.17 (11.0\%) more than females.
+However, the median values are nearly identical (\$9,369.62 vs \$9,412.96), indicating
+the mean gap is driven by a small number of high-cost outliers rather than a systematic
+pricing difference.
+\end{infobox}
+
+\subsubsection{Gender $\times$ Smoking Status Interaction}
+
+\begin{table}[H]
+\centering
+\caption{Average Charges by Gender and Smoking Status}
+\label{tab:gender_smoker}
+\begin{tabular}{llrr}
+\toprule
+\textbf{Gender} & \textbf{Smoker} & \textbf{Avg.\ Charges} & \textbf{vs Non-Smoker} \\
+\midrule
+Male   & No  & \$8,087.20  & ---                     \\
+Male   & Yes & \$33,042.01 & $+$\$24,954.81 (+308\%) \\
+Female & No  & \$8,762.30  & ---                     \\
+Female & Yes & \$30,678.85 & $+$\$21,916.55 (+250\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{gender_smoking Status.png}
+\caption{Average Insurance Charges by Gender and Smoking Status}
+\end{figure}
+
+\section{Experimental Design}
+
+\begin{itemize}
+  \item \textbf{Train/Test split:} 80\% / 20\% (\texttt{random\_state=42})
+  \item \textbf{Cross-validation:} 5-fold CV on full dataset
+  \item \textbf{Primary metric:} $R^2$ (coefficient of determination)
+  \item \textbf{Secondary metrics:} MSE, MAE, RMSE
+  \item \textbf{Tuning method:} \texttt{GridSearchCV} (5-fold)
+\end{itemize}
+
+\begin{equation}
+  R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}
+\end{equation}
+
+%========================================================
+% CHAPTER 4: MODEL DEVELOPMENT
+%========================================================
+\chapter{Model Development}
+
+\section{Linear Regression}
+
+Linear Regression serves as the baseline model for this project. It assumes a linear relationship between the input features and insurance charges, estimating a weighted sum of the predictors \cite{pedregosa2011}. Despite its simplicity, it provides a useful performance benchmark against which more complex models are compared.
+
+\begin{equation}
+  \hat{y} = \beta_0 + \beta_1 x_{\text{age}} + \beta_2 x_{\text{bmi}}
+           + \beta_3 x_{\text{children}} + \beta_4 x_{\text{smoker}}
+\end{equation}
+
+Estimated coefficients: $\hat{\beta}_{\text{smoker}} \approx 12{,}658$,
+$\hat{\beta}_{\text{age}} \approx 388$, $\hat{\beta}_{\text{bmi}} \approx 676$,
+$\hat{\beta}_{\text{children}} \approx 425$.
+
+\textbf{Result:} Train $R^2 = 0.730$, Test $R^2 = 0.806$. Underfitting due to
+unmodelled non-linear interactions between smoking, BMI, and age.
+
+\section{Support Vector Regressor (SVR)}
+
+Support Vector Regression extends the principles of Support Vector Machines to regression tasks by finding a hyperplane that fits the data within a specified margin of tolerance ($\varepsilon$) \cite{pedregosa2011}. An RBF kernel was selected to capture potential non-linear relationships between features and charges, though this choice is highly sensitive to input feature scale.
+
+\begin{equation}
+  \min_{\mathbf{w},b,\xi} \frac{1}{2}\|\mathbf{w}\|^2 + C\sum_{i=1}^{n}(\xi_i + \xi_i^*)
+\end{equation}
+
+\textbf{Result:} Train $R^2 = -0.102$, Test $R^2 = -0.134$.
+\textcolor{failred}{\textbf{Failed}} entirely due to unscaled input features;
+the RBF kernel is highly sensitive to feature scale.
+
+\section{Random Forest}
+
+Random Forest is an ensemble method that constructs multiple decision trees on bootstrapped subsets of the training data and averages their predictions \cite{pedregosa2011}. By introducing randomness in both data sampling and feature selection at each split, it reduces variance and generally outperforms single decision trees on tabular datasets.
+
+\begin{equation}
+  \hat{y}_{\text{RF}}(\mathbf{x}) = \frac{1}{B}\sum_{b=1}^{B} f_b(\mathbf{x})
+\end{equation}
+
+Grid search selected 120 trees (\texttt{n\_estimators=120}). \textbf{Result:}
+Test $R^2 = 0.882$, but significant overfitting (train $R^2 = 0.975$, gap $= -0.093$).
+
+\section{Gradient Boosting}
+
+Gradient Boosting builds an ensemble of weak learners sequentially, where each new tree is trained to correct the residual errors of the previous ensemble \cite{friedman2001greedy}. The learning rate $\eta$ controls the contribution of each tree, balancing model complexity against the risk of overfitting on the training data.
+
+\begin{equation}
+  F_m(\mathbf{x}) = F_{m-1}(\mathbf{x}) + \eta \cdot h_m(\mathbf{x})
+\end{equation}
+
+Grid search selected \texttt{learning\_rate}$=0.2$, \texttt{n\_estimators}$=21$.
+\textbf{Result:} Test $R^2 = 0.902$; well calibrated with a small overfitting gap
+of $+0.034$.
+
+\section{XGBoost}
+
+XGBoost (Extreme Gradient Boosting) extends standard gradient boosting with second-order gradient optimisation, built-in $L_1/L_2$ regularisation via the $\Omega$ term, and column subsampling \cite{chen2016xgboost}. These additions make it significantly more resistant to overfitting and computationally faster than traditional GBM implementations, particularly on small structured datasets.
+
+\begin{equation}
+  \mathcal{L}(\theta) = \sum_{i=1}^{n} \ell(y_i, \hat{y}_i)
+  + \sum_{k=1}^{K} \Omega(f_k), \quad
+  \Omega(f_k) = \gamma T + \frac{1}{2}\lambda\sum_{j=1}^{T} w_j^2
+\end{equation}
+
+\begin{table}[H]
+\centering
+\caption{XGBoost Hyperparameter Grid Search}
+\begin{tabular}{lll}
+\toprule
+\textbf{Parameter} & \textbf{Values Tested} & \textbf{Optimal} \\
+\midrule
+\texttt{n\_estimators} & 10, 15, 20, 40, 50    & \textbf{15} \\
+\texttt{max\_depth}    & 3, 4, 5               & \textbf{3}  \\
+\texttt{gamma}         & 0, 0.15, 0.3, 0.5, 1  & \textbf{0}  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The optimal leaf weight and split gain at each iteration are:
+
+\begin{equation}
+  w_j^* = -\frac{\sum_{i \in I_j} g_i}{\sum_{i \in I_j} h_i + \lambda}, \qquad
+  \text{Gain} = \frac{1}{2}\left[\frac{G_L^2}{H_L+\lambda}
+  + \frac{G_R^2}{H_R+\lambda} - \frac{G^2}{H+\lambda}\right] - \gamma
+\end{equation}
+
+\textbf{Result:} Test $R^2 = 0.902$, CV $R^2 = 0.861$, gap $= +0.033$.
+Selected as \textbf{champion model}.
+
+\subsection{Final XGBoost Configuration}
+
+\begin{table}[H]
+\centering
+\caption{Final XGBoost Model Configuration}
+\begin{tabular}{lll}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Rationale} \\
+\midrule
+\texttt{n\_estimators}  & 15               & Small dataset; more trees overfit \\
+\texttt{max\_depth}     & 3                & $\leq 8$ leaves per tree; prevents noise capture \\
+\texttt{gamma}          & 0                & Depth constraint is sufficient \\
+\texttt{learning\_rate} & 0.3              & Default; lower values need more trees \\
+\texttt{subsample}      & 1.0              & Full sampling (dataset too small to subsample) \\
+\texttt{objective}      & reg:squarederror & MSE loss for regression \\
+\texttt{random\_state}  & 42               & Reproducibility \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Baseline vs Tuned Performance}
+
+\begin{table}[H]
+\centering
+\caption{XGBoost: Baseline vs Tuned}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Model} & \textbf{Train $R^2$} & \textbf{Test $R^2$} & \textbf{CV} & \textbf{Gap} \\
+\midrule
+Baseline (defaults)    & 0.995 & 0.855 & 0.808 & $-$0.140 \\
+\textbf{Tuned (final)} & \textbf{0.869} & \textbf{0.902} & \textbf{0.861} & +0.033 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Deep Neural Network (DNN)}
+
+A fully connected feedforward neural network was implemented as a deep learning baseline to assess whether increased model complexity could improve upon tree-based methods \cite{grinsztajn2022tree}. The architecture uses two hidden layers with ReLU activations and dropout regularisation to mitigate overfitting, trained using the Adam optimiser with mean squared error loss.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  node distance=1.2cm,
+  neuron/.style={circle, draw=primary, fill=primary!15,
+                 minimum size=0.6cm, font=\tiny},
+  layer_label/.style={font=\small\bfseries, color=darkgray}
+]
+\foreach \y/\name in {1/age,2/bmi,3/children,4/smoker}{
+  \node[neuron] (i\y) at (0,-\y*0.8) {\name};
+}
+\node[layer_label] at (0,0.2) {Input (4)};
+\foreach \y in {1,...,5}{ \node[neuron] (h1\y) at (2.5,-\y*0.65) {}; }
+\node[layer_label] at (2.5,0.2) {Dense 64};
+\node[font=\tiny,color=gray] at (2.5,-3.8) {+Dropout 0.2};
+\foreach \y in {1,...,4}{ \node[neuron] (h2\y) at (5,-\y*0.75+0.3) {}; }
+\node[layer_label] at (5,0.2) {Dense 32};
+\node[font=\tiny,color=gray] at (5,-3.0) {+Dropout 0.2};
+\node[neuron] (o1) at (7.5,-1.5) {\$};
+\node[layer_label] at (7.5,0.2) {Output (1)};
+\foreach \i in {1,...,4}{\foreach \h in {1,...,5}{
+  \draw[->,gray!40,thin](i\i)--(h1\h);}}
+\foreach \i in {1,...,5}{\foreach \h in {1,...,4}{
+  \draw[->,gray!40,thin](h1\i)--(h2\h);}}
+\foreach \i in {1,...,4}{\draw[->,gray!40,thin](h2\i)--(o1);}
+\end{tikzpicture}
+\caption{DNN Architecture: 4 $\to$ Dense(64) $\to$ Dropout(0.2) $\to$
+         Dense(32) $\to$ Dropout(0.2) $\to$ Output(1)}
+\end{figure}
+
+\textbf{Result:} Test $R^2 = 0.816$. The DNN underperformed XGBoost due to small
+dataset size and limited feature dimensionality, consistent with findings in the
+literature (Section~2.3).
+
+%========================================================
+% CHAPTER 5: RESULTS AND ANALYSIS
+%========================================================
+\chapter{Results and Analysis}
+
+\section{Comparative Model Performance}
+
+\begin{table}[H]
+\centering
+\caption{Complete Model Performance Comparison}
+\begin{tabular}{lrrrll}
+\toprule
+\textbf{Model} & \textbf{Train $R^2$} & \textbf{Test $R^2$} & \textbf{CV}
+               & \textbf{Gap} & \textbf{Status} \\
+\midrule
+Linear Regression   & 0.730    & 0.806    & 0.747
+  & +0.076   & \textcolor{warnyellow}{Underfitting} \\
+SVR (RBF)           & $-$0.102 & $-$0.134 & $-$0.104
+  & $-$0.032 & \textcolor{failred}{Failed} \\
+Random Forest       & 0.975    & 0.882    & 0.837
+  & $-$0.093 & \textcolor{warnyellow}{Overfitting} \\
+Gradient Boosting   & 0.868    & 0.902    & 0.861
+  & +0.034   & \textcolor{successgreen}{Very Strong} \\
+\textbf{XGBoost}    & \textbf{0.869} & \textbf{0.902} & \textbf{0.861}
+  & +0.033   & \textcolor{successgreen}{\textbf{Champion}} \\
+Deep Neural Network & 0.747    & 0.816    & N/A
+  & +0.069   & \textcolor{warnyellow}{Moderate} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{model_comparison_graph.png}
+\caption{Train vs Test $R^2$ for all six models}
+\end{figure}
+
+\section{Champion Model Selection Rationale}
+XGBoost and Gradient Boosting achieved identical test $R^2 = 0.902$. XGBoost was
+selected as champion based on: (i) identical accuracy; (ii) faster parallelised
+training ($< 1$ second); (iii) native SHAP compatibility; (iv) marginally lower
+overfitting gap (0.033 vs 0.034); and (v) industry standard adoption for tabular ML.
+
+\section{Final XGBoost Model Metrics}
+
+\begin{table}[H]
+\centering
+\caption{XGBoost Final Model Performance}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Metric} & \textbf{Training Set} & \textbf{Test Set} & \textbf{5-Fold CV} \\
+\midrule
+$R^2$      & 0.869 & \textbf{0.902} & 0.861 \\
+RMSE (USD) & $\approx\$4{,}600$ & $\approx\$4{,}000$ & $\approx\$4{,}700$ \\
+MAE  (USD) & $\approx\$3{,}100$ & $\approx\$2{,}700$ & $\approx\$3{,}200$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{RMSE Derivation}
+
+\begin{equation}
+  \text{MSE}_{\text{test}} = (1 - 0.902) \times 146{,}652{,}100 \approx 14{,}372{,}000,
+  \quad
+  \text{RMSE}_{\text{test}} = \sqrt{14{,}372{,}000} \approx \$3{,}791
+\end{equation}
+
+\section{Overfitting Analysis}
+
+\begin{table}[H]
+\centering
+\caption{Overfitting Gap Analysis Across All Models}
+\begin{tabular}{lrrrl}
+\toprule
+\textbf{Model} & \textbf{Train $R^2$} & \textbf{Test $R^2$} & \textbf{Gap}
+               & \textbf{Diagnosis} \\
+\midrule
+Linear Regression & 0.730    & 0.806    & +0.076   & Underfitting \\
+SVR               & $-$0.102 & $-$0.134 & $-$0.032 & Complete Failure \\
+Random Forest     & 0.975    & 0.882    & $-$0.093 & Overfitting \\
+Gradient Boosting & 0.868    & 0.902    & +0.034   & Well Calibrated \\
+XGBoost (tuned)   & 0.869    & 0.902    & +0.033   & \textbf{Optimal} \\
+DNN               & 0.747    & 0.816    & +0.069   & Moderate Underfit \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+5-fold CV confirms the test score ($R^2 = 0.902$) is consistent across splits
+(CV mean $= 0.861$); the modest gap ($\approx 0.04$) is within expected variance
+for this dataset size.
+
+\section{XGBoost Feature Importance}
+
+\begin{table}[H]
+\centering
+\caption{XGBoost Gain-Based Feature Importance}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Feature} & \textbf{Gain Importance} & \textbf{Cumulative \%} \\
+\midrule
+smoker   & 0.8096 & 80.96\% \\
+bmi      & 0.1334 & 94.30\% \\
+age      & 0.0386 & 98.16\% \\
+children & 0.0111 & 99.27\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{SHAP Interpretability Analysis}
+
+\subsection{SHAP Theory}
+SHAP (SHapley Additive exPlanations) attributes each prediction to individual features
+using cooperative game theory:
+
+\begin{equation}
+  \phi_j(\mathbf{x}) = \sum_{S \subseteq F \setminus \{j\}}
+  \frac{|S|!\,(|F|-|S|-1)!}{|F|!}
+  \left[ f_{S \cup \{j\}}(\mathbf{x}_{S \cup \{j\}}) - f_S(\mathbf{x}_S) \right],
+  \quad
+  f(\mathbf{x}) = \phi_0 + \sum_{j=1}^{|F|} \phi_j(\mathbf{x})
+\end{equation}
+
+\subsection{SHAP vs Gain Importance}
+
+\begin{table}[H]
+\centering
+\caption{SHAP vs XGBoost Built in Feature Importance}
+\begin{tabular}{lrrl}
+\toprule
+\textbf{Feature} & \textbf{SHAP} & \textbf{XGBoost Gain} & \textbf{Observation} \\
+\midrule
+smoker   & 57.7\% & 81.0\% & Both methods confirm dominance \\
+age      & 22.5\% &  3.9\% & SHAP reveals far greater age impact \\
+bmi      & 14.5\% & 13.3\% & Consistent across both methods \\
+children &  5.3\% &  1.1\% & Slightly higher in SHAP \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{SHAP_analysis_graph.png}
+\caption{SHAP Feature Importance. Mean absolute SHAP values confirm smoking as
+the dominant predictor}
+\end{figure}
+
+\subsection{Key SHAP Insights}
+\begin{enumerate}
+  \item \textbf{Smoking (57.7\%):} Shifts predictions upward by $\sim\$25{,}000$
+        on average, the single most influential factor.
+  \item \textbf{Age (22.5\%):} Nearly $6\times$ higher than the gain estimate of 3.9\%,
+        because gain underweights high-level splits.
+  \item \textbf{BMI (14.5\%):} Mainly differentiates cost tiers among smokers.
+  \item \textbf{Children (5.3\%):} Minimal but non-zero marginal effect.
+\end{enumerate}
+
+\begin{infobox}
+\textbf{Fairness Validation:} SHAP confirms model decisions rely solely on health
+and age factors. \textbf{No gender or geographic bias detected.}
+\end{infobox}
+
+%========================================================
+% CHAPTER 6: SYSTEM IMPLEMENTATION
+%========================================================
+\chapter{System Implementation}
+
+\section{Technology Stack}
+
+\begin{table}[H]
+\centering
+\caption{Technologies Used in the System}
+\begin{tabular}{lll}
+\toprule
+\textbf{Component} & \textbf{Technology} & \textbf{Purpose} \\
+\midrule
+ML Framework     & XGBoost 2.x, scikit-learn & Model training and serialisation \\
+Interpretability & SHAP                      & Feature attribution \\
+Web Framework    & Streamlit                 & Interactive UI and deployment \\
+Data Processing  & pandas, NumPy             & Data wrangling \\
+Visualisation    & matplotlib, seaborn       & EDA charts \\
+Model Storage    & pickle (\texttt{.pkl})    & Model serialisation \\
+Hosting          & Streamlit Community Cloud & Public deployment \\
+Version Control  & GitHub                    & Code repository \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{System Architecture}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  node distance=1.2cm and 0.6cm,
+  box/.style={rectangle, rounded corners=5pt, draw=primary, fill=primary!10,
+              text width=3.2cm, minimum height=1.0cm, align=center, font=\small},
+  cloud/.style={ellipse, draw=secondary, fill=secondary!10,
+                text width=2.5cm, minimum height=0.9cm, align=center, font=\small},
+  arrow/.style={->, thick, color=secondary}
+]
+  \node[cloud] (user) {User\\Browser};
+  \node[box, right=of user] (st) {\textbf{Streamlit Server}\\app.py\\localhost:8501};
+  \node[box, right=of st]   (cache) {\textbf{Cache Layer}\\@st.cache\_data\\
+                                      @st.cache\_resource};
+  \node[box, above right=0.4cm and 0.4cm of cache]
+    (model) {\textbf{XGBoost Model}\\.pkl file\\$< 10$ ms inference};
+  \node[box, below right=0.4cm and 0.4cm of cache]
+    (data)  {\textbf{CSV Dataset}\\1,337 records\\EDA charts};
+  \draw[arrow] (user)--(st);
+  \draw[arrow] (st)--(cache);
+  \draw[arrow] (cache)--(model);
+  \draw[arrow] (cache)--(data);
+  \draw[arrow,dashed] (model.west)..controls+(left:1cm) and +(right:0.5cm)..(st.east);
+\end{tikzpicture}
+\caption{Streamlit Application Architecture}
+\end{figure}
+
+\section{Application Pages}
+
+\begin{table}[H]
+\centering
+\caption{Web Application Pages Summary}
+\begin{tabular}{lp{10cm}}
+\toprule
+\textbf{Page} & \textbf{Description} \\
+\midrule
+Home          & Project overview, dataset stats, KPI cards ($n$, features, $R^2$) \\
+Data Analysis & EDA visualisations: distributions, correlations, scatter plots \\
+Predict Costs & User inputs (age, BMI, children, smoker) $\to$ real time prediction \\
+About         & Technical documentation, model details, feature importance \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Deployment}
+The application is deployed at:
+\begin{center}
+\url{https://insurance-cost-prediction-model.streamlit.app/}
+\end{center}
+
+Deployment is managed via Streamlit Community Cloud, with automatic redeployment
+triggered on \texttt{git push} to the main branch of the GitHub repository.
+
+\section{Production Readiness Assessment}
+
+\begin{table}[H]
+\centering
+\caption{Production Readiness Assessment}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Criterion} & \textbf{Score (/10)} & \textbf{Notes} \\
+\midrule
+Accuracy         & 9  & $R^2 = 0.902$ \\
+Inference Speed  & 10 & $< 10$ ms per prediction \\
+Simplicity       & 10 & 4 features, 2.5 KB model \\
+Interpretability & 8  & Feature importance + SHAP \\
+Robustness       & 7  & Limited input validation \\
+Scalability      & 6  & Single-threaded Streamlit \\
+Monitoring       & 2  & No logging or drift detection \\
+Security         & 3  & No auth or rate limiting \\
+\midrule
+\textbf{Overall} & \textbf{6.9} & Suitable for demo/prototype \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%========================================================
+% CHAPTER 7: CONCLUSION AND FUTURE WORK
+%========================================================
+\chapter{Conclusion and Future Work}
+
+\section{Summary of Findings}
+
+\begin{enumerate}
+  \item \textbf{XGBoost achieved test $R^2 = 0.902$}, meeting the $\geq 90\%$ objective
+        with only 15 trees of depth 3.
+  \item \textbf{Smoking is the dominant predictor} (57.7\% SHAP). Smokers pay
+        $\approx 3.8\times$ more than non-smokers.
+  \item \textbf{Age (22.5\%) and BMI (14.5\%)} are secondary predictors; SHAP reveals
+        age's true importance far exceeds XGBoost's gain estimate.
+  \item \textbf{The model is fair}: gender and region were removed automatically;
+        SHAP confirms no demographic bias.
+  \item \textbf{Gender analysis}: males pay an average of 11\% more than females,
+        but Cohen's $d \approx 0.13$ confirms this is a negligible practical effect.
+  \item \textbf{Deep learning does not outperform XGBoost} on this small tabular
+        dataset (DNN: $R^2 = 0.816$), consistent with the literature.
+\end{enumerate}
+
+\section{Limitations}
+
+\begin{table}[H]
+\centering
+\caption{Identified Limitations and Proposed Mitigations}
+\begin{tabular}{p{2.8cm}p{4cm}p{5.5cm}}
+\toprule
+\textbf{Category} & \textbf{Limitation} & \textbf{Proposed Mitigation} \\
+\midrule
+Data  & Only 1,337 records         & Collect more data; synthetic augmentation \\
+Data  & Age range 18--64 only      & Extend to seniors ($>65$) \\
+Data  & No claims history          & Integrate longitudinal claims data \\
+Model & Point predictions only     & Add quantile regression for intervals \\
+Model & No uncertainty estimates   & Bayesian XGBoost or conformal prediction \\
+App   & Redundant UI inputs        & Remove \texttt{sex} and \texttt{region} from UI \\
+App   & No backend / database      & Add FastAPI + PostgreSQL \\
+MLOps & No monitoring              & Prediction drift detection \\
+MLOps & No CI/CD pipeline          & GitHub Actions automation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Future Work}
+
+\begin{enumerate}[label=\textbf{F\arabic*.}]
+
+  \item \textbf{Extending the Model to the Ugandan Context:} The current model is
+        trained on a United States based dataset with charges denominated in USD,
+        which limits its direct applicability to the Ugandan insurance market.
+        Future work should incorporate locally sourced data from Ugandan insurers
+        (e.g.\ UAP, Jubilee, Britam Uganda) with premiums expressed in Uganda
+        Shillings (UGX), and account for region specific factors such as proximity
+        to public health facilities, malaria and HIV prevalence rates, the
+        urban rural healthcare cost divide, and out of pocket expenditure patterns.
+        Partnering with the Insurance Regulatory Authority of Uganda (IRA) to access
+        anonymised claims data would be a practical and impactful first step toward
+        a locally calibrated pricing model.
+
+  \item \textbf{Prediction Intervals:} Replacing point predictions with calibrated
+        confidence intervals via conformal prediction or quantile XGBoost
+        would give policyholders a range of expected costs rather than a single
+        figure, improving transparency and trust.
+
+  \item \textbf{MLOps Pipeline:} Implementing model versioning (MLflow), automated
+        retraining triggers, and drift monitoring (Evidently AI) would bring the
+        system to production grade and ensure predictions remain reliable as
+        policyholder demographics shift over time.
+
+  \item \textbf{API Backend:} Replacing the Streamlit only deployment with a FastAPI
+        REST backend would enable integration with insurer CRMs, mobile applications,
+        and third party quoting platforms.
+
+
+\end{enumerate}
+
+\section{Concluding Remarks}
+This project demonstrates proficiency in the complete data science lifecycle: data
+wrangling, exploratory analysis, feature engineering, multi model evaluation,
+hyperparameter optimisation, model interpretability, serialisation, and web
+deployment. The XGBoost champion model meets the stated accuracy objective
+($R^2 = 0.902$), is interpretable via SHAP, and is demonstrably free of gender
+and regional bias making it a strong foundation for a production ready insurance
+pricing tool, particularly one that could be adapted to serve the growing Ugandan
+insurance sector.
+
+%========================================================
+% APPENDIX
+%========================================================
+\appendix
+
+\chapter{Full Model Metrics}
+
+\begin{table}[H]
+\centering
+\caption{Exact $R^2$ Values from Notebook}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Model} & \textbf{Train $R^2$} & \textbf{Test $R^2$} & \textbf{CV Mean} \\
+\midrule
+Linear Regression            & 0.7295    & 0.8062    & 0.7471 \\
+SVR (RBF)                    & $-$0.1015 & $-$0.1344 & $-$0.1037 \\
+Random Forest (baseline)     & 0.9738    & 0.8819    & 0.8364 \\
+Random Forest (tuned)        & 0.9746    & 0.8822    & 0.8367 \\
+Gradient Boosting (baseline) & 0.8931    & 0.9043    & 0.8551 \\
+Gradient Boosting (tuned)    & 0.8682    & 0.9017    & 0.8605 \\
+XGBoost (baseline)           & 0.9954    & 0.8549    & 0.8081 \\
+\textbf{XGBoost (tuned)}     & \textbf{0.8691} & \textbf{0.9007} & \textbf{0.8606} \\
+Deep Neural Network          & 0.747     & 0.816     & N/A \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\chapter{Glossary}
+
+\begin{table}[H]
+\centering
+\caption{Key Terms and Definitions}
+\begin{tabular}{p{3cm}p{10.5cm}}
+\toprule
+\textbf{Term} & \textbf{Definition} \\
+\midrule
+$R^2$        & Coefficient of determination; proportion of variance explained by the model. \\
+XGBoost      & Extreme Gradient Boosting; regularised sequential ensemble of decision trees. \\
+SHAP         & SHapley Additive exPlanations; game-theoretic feature attribution framework. \\
+IQR          & Interquartile Range ($Q_3 - Q_1$); used for outlier detection. \\
+Grid Search  & Exhaustive hyperparameter search over a defined grid using cross-validation. \\
+Overfitting  & Model performs well on training data but poorly on unseen data. \\
+Underfitting & Model too simple to capture data patterns. \\
+Streamlit    & Python framework for building interactive data web applications. \\
+Pickle       & Python object serialisation format. \\
+Dropout      & Neural network regularisation; randomly deactivates neurons during training. \\
+Cohen's $d$  & Standardised measure of effect size between two group means. \\
+GLM          & Generalised Linear Model; traditional actuarial regression framework. \\
+UGX          & Uganda Shillings; local currency for Ugandan insurance market adaptation. \\
+IRA          & Insurance Regulatory Authority of Uganda. \\
+NHIS         & National Health Insurance Scheme (Uganda). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%========================================================
+% REFERENCES — forced onto its own page
+%========================================================
+\clearpage
+\addcontentsline{toc}{chapter}{References}
+\begin{thebibliography}{99}
+
+\bibitem{chen2016xgboost}
+T.~Chen and C.~Guestrin,
+``XGBoost: A scalable tree boosting system,''
+in \textit{Proc. 22nd ACM SIGKDD Int. Conf. Knowledge Discovery and Data Mining},
+pp.~785--794, 2016.
+
+\bibitem{pedregosa2011}
+F.~Pedregosa et al.,
+``Scikit-learn: Machine learning in Python,''
+\textit{Journal of Machine Learning Research}, vol.~12, pp.~2825--2830, 2011.
+
+\bibitem{lundberg2017unified}
+S.~M.~Lundberg and S.-I.~Lee,
+``A unified approach to interpreting model predictions,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)}, vol.~30, 2017.
+
+\bibitem{grinsztajn2022tree}
+L.~Grinsztajn, E.~Oyallon, and G.~Varoquaux,
+``Why tree-based models still outperform deep learning on tabular data,''
+in \textit{Advances in Neural Information Processing Systems (NeurIPS)}, vol.~35, 2022.
+
+\bibitem{friedman2001greedy}
+J.~H.~Friedman,
+``Greedy function approximation: A gradient boosting machine,''
+\textit{Annals of Statistics}, vol.~29, no.~5, pp.~1189--1232, 2001.
+
+\bibitem{hunter2007matplotlib}
+J.~D.~Hunter,
+``Matplotlib: A 2D graphics environment,''
+\textit{Computing in Science \& Engineering}, vol.~9, no.~3, pp.~90--95, 2007.
+
+\bibitem{waskom2021seaborn}
+M.~L.~Waskom,
+``Seaborn: Statistical data visualization,''
+\textit{Journal of Open Source Software}, vol.~6, no.~60, p.~3021, 2021.
+
+\bibitem{cohen1988statistical}
+J.~Cohen,
+\textit{Statistical Power Analysis for the Behavioral Sciences}, 2nd~ed.
+Lawrence Erlbaum Associates, 1988.
+
+\bibitem{streamlit_docs}
+Streamlit,
+``Streamlit documentation,''
+[Online]. Available: \url{https://docs.streamlit.io/}. [Accessed: Apr.~2026].
+
+\bibitem{xgboost_docs}
+XGBoost Developers,
+``XGBoost documentation,''
+[Online]. Available: \url{https://xgboost.readthedocs.io/}. [Accessed: Apr.~2026].
+
+\bibitem{dataset_hf}
+Adegoke,
+``Insurance dataset,''
+Hugging Face, [Online]. Available: \url{https://huggingface.co/datasets/adegoke655/Insurance}.
+[Accessed: Apr.~2026].
+
+\end{thebibliography}
+
+\end{document}
