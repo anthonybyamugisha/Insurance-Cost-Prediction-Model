@@ -81,16 +81,16 @@ streamlit run app.py
 
 ```
 INSURANCE/
-├── app.py                      # Main Streamlit application
-├── insurance_cost.ipynb        # Complete ML pipeline (6 models + SHAP)
-├── insurance_data.csv          # Dataset (1,337 records after deduplication)
-├── insurancemodelf.pkl         # Trained XGBoost champion model
-├── requirements.txt            # Python dependencies
-├── PROJECT_REPORT.md           # Comprehensive technical report
-├── README.md                   # This file
+├── app.py  
+├── insurance_cost.ipynb       
+├── insurance_data.csv          
+├── insurancemodelf.pkl         
+├── requirements.txt            
+├── PROJECT_REPORT.md           
+├── README.md                  
 ├── .streamlit/
-│   └── config.toml            # Streamlit configuration
-└── .gitignore                 # Git ignore rules
+│   └── config.toml           
+└── .gitignore                
 ```
 
 ## Model Performance
